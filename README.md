@@ -53,4 +53,12 @@ Observed constraint: **PASS** for Improved. This is a synthetic benchmark result
 
 # 8. Failure Case
 
-Improved Held-out FN/FP = **0/0**. `shipping_label` is handled by full-identifier matching. Separate measured probes expose an unknown semantic/label alias, a subtle near duplicate below threshold, and a benign HTTP `status_code` false positive; these are excluded from benchmark metrics. See [failure analysis](failure_analysis.md), [probe outputs](results/failure_probes.csv) and [four-slide outline](slides_outline.md). Production needs governed lineage, target IDs, availability timestamps and actual duplicate indexes.
+Improved Held-out FN/FP = **0/0**. `shipping_label` is handled by full-identifier matching. Separate measured probes expose an unknown semantic/label alias, a subtle near duplicate below threshold, and a benign HTTP `status_code` false positive; these are excluded from benchmark metrics. See [failure analysis](failure_analysis.md), [probe outputs](results/failure_probes.csv) and [four-slide outline](slides_outline.md). # 9. Nhóm thực hiện
+
+| Thành viên | MSSV | Nhiệm vụ |
+| --- | --- | --- |
+| Nguyễn Thành Nam | 2A202602694 | Nghiên cứu kiểu dữ liệu, so sánh baseline |
+| Hoàng Anh Tú | 2A202602643 | Xây dựng pipeline tổng thể, chạy thử nghiệm |
+| Ngô Minh Thu | 2A202602679 | Kiểm tra rò rỉ, phân tích kết quả |
+| Bùi Thị Thu Uyên | 2A202602613 | Viết báo cáo, làm slide, đối chiếu chỉ số |
+| Bùi Lê Gia Huy | 2A202602607 | Xử lý dữ liệu, tạo trường hợp kiểm thử |
