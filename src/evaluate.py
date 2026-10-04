@@ -1,19 +1,8 @@
-"""
-src/evaluate.py
-Evaluation & Benchmark Engine for Point-in-Time Training Data Validator.
+"""Public evaluation utilities and compatibility CLI.
 
-Key Capabilities:
-1. Public function evaluate(scores_or_flags, labels, ...) supporting both continuous anomaly scores
-   and binary decisions, computing Recall @ FPR <= 5%, Precision, F1, and per-type confusion matrices.
-2. Two-stage Calibration & Freeze Protocol:
-   - Calibrates decision threshold solely on Dev set to satisfy FPR <= 5%.
-   - Freezes threshold into 'results/frozen_threshold.json'.
-   - Held-out evaluation strictly loads the frozen threshold with zero tuning allowed.
-3. Multi-validator benchmark:
-   - Primary Baseline (feature_time > prediction_time)
-   - Ingestion-Aware Baseline (feature_time > pred_time OR ingestion_time > pred_time)
-   - Improved Validator (loaded dynamically from src.validators)
-4. Comprehensive comparison tables (Dev vs Held-out, Baseline vs Improved) and publication-ready charts.
+Continuous-score calibration utilities are for Dev only. The submission runner
+uses the supplied frozen binary validator, never calibrates on Held-out, and
+routes orchestration to src.frozen_evaluation.
 """
 
 import os
@@ -21,9 +10,11 @@ import sys
 import json
 import argparse
 from datetime import datetime
+from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple, Union
 import pandas as pd
 import numpy as np
+os.environ.setdefault("MPLCONFIGDIR", str(Path(__file__).resolve().parents[1] / "tmp/matplotlib"))
 import matplotlib.pyplot as plt
 
 # Ensure local imports work seamlessly
@@ -312,6 +303,11 @@ def plot_grouped_bar_chart(
         sub_df = df
 
     categories = list(sub_df[group_col].unique())
+    if group_col == "severity":
+        categories = [s for s in ["low", "medium", "high"] if s in categories]
+    elif group_col == "leakage_type":
+        from config.data_config import LEAKAGE_TYPES
+        categories = [s for s in LEAKAGE_TYPES if s in categories] + [s for s in categories if s not in LEAKAGE_TYPES]
     validators = list(sub_df["validator"].unique())
 
     if not categories or not validators:
@@ -339,10 +335,11 @@ def plot_grouped_bar_chart(
     ax.set_ylabel(metric_col.capitalize())
     ax.set_title(f"{title} ({split_name.capitalize()})", pad=12, fontweight='bold')
     ax.set_xticks(x)
-    ax.set_xticklabels(categories, rotation=15, ha='right')
+    ax.set_xticklabels([str(c).replace("_", " ") for c in categories], rotation=15, ha='right')
     ax.set_ylim(0, 1.15)
     ax.grid(axis='y', linestyle='--', alpha=0.5)
-    ax.legend(loc='upper right')
+    ax.legend(loc='lower center', bbox_to_anchor=(0.5, 1.02), ncol=len(validators))
+    ax.set_title(f"{title} ({split_name.capitalize()})", pad=55, fontweight='bold')
     plt.tight_layout()
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     plt.savefig(output_path)
@@ -358,262 +355,14 @@ def run_evaluation(
     results_dir: str = "results",
     eval_split: str = "all"
 ) -> Dict[str, pd.DataFrame]:
+    """Compatibility entry point: frozen binary decisions, never retune.
+
+    Official submissions use scripts/run_all.py or src.frozen_evaluation,
+    with strict verification of the 300-case dataset contract enabled.
+    This interface also accepts smaller datasets used by unit fixtures.
     """
-    Execute full evaluation framework:
-    1. Loads Dev and Held-out splits.
-    2. Runs Primary Baseline, Ingestion-Aware Baseline, and Improved Validator.
-    3. Calibrates & Freezes threshold on Dev.
-    4. Evaluates frozen threshold on Held-out.
-    5. Exports CSV metrics, Pivot comparison, and charts.
-    """
-    os.makedirs(results_dir, exist_ok=True)
-    frozen_path = os.path.join(results_dir, "frozen_threshold.json")
-
-    # 1. Load Data
-    dev_path = os.path.join(data_dir, "dev_cases.csv")
-    heldout_path = os.path.join(data_dir, "heldout_cases.csv")
-
-    dfs = []
-    if os.path.exists(dev_path):
-        df_dev = pd.read_csv(dev_path)
-        df_dev["split"] = "dev"
-        dfs.append(df_dev)
-    if os.path.exists(heldout_path):
-        df_heldout = pd.read_csv(heldout_path)
-        df_heldout["split"] = "heldout"
-        dfs.append(df_heldout)
-
-    if not dfs:
-        raise FileNotFoundError(f"No datasets found in '{data_dir}'. Expected dev_cases.csv and/or heldout_cases.csv.")
-
-    full_df = pd.concat(dfs, ignore_index=True)
-
-    # Standardize ground truth
-    if "is_leakage" in full_df.columns:
-        full_df["ground_truth"] = full_df["is_leakage"].astype(bool).astype(int)
-    elif "is_leaky" in full_df.columns:
-        full_df["ground_truth"] = full_df["is_leaky"].astype(bool).astype(int)
-    elif "ground_truth" in full_df.columns:
-        full_df["ground_truth"] = full_df["ground_truth"].map(
-            {"leakage": 1, "clean": 0, "1": 1, "0": 0, 1: 1, 0: 0, True: 1, False: 0}
-        ).fillna(0).astype(int)
-    else:
-        raise KeyError("Dataset must contain 'is_leakage', 'is_leaky', or 'ground_truth'.")
-
-    if "case_id" not in full_df.columns:
-        full_df["case_id"] = [f"CASE_{i+1:04d}" for i in range(len(full_df))]
-
-    # 2. Register Validators
-    validators_to_run = [
-        ("baseline", baseline_validate),
-        ("baseline_ingestion", baseline_ingestion_validate)
-    ]
-
-    has_improved = False
-    try:
-        from src.validators import improved_validate
-        validators_to_run.append(("improved", improved_validate))
-        has_improved = True
-        print("[INFO] Loaded improved_validate from src.validators.")
-    except (ImportError, ModuleNotFoundError):
-        print("[INFO] src.validators not yet present. Benchmarking Baselines.")
-
-    # 3. Generate Predictions (Zero-Leakage)
-    pred_frames = []
-    for val_name, val_fn in validators_to_run:
-        val_pred = run_validator_safe(full_df, val_fn, val_name)
-        pred_frames.append(val_pred)
-
-    eval_df = pd.concat([full_df] + pred_frames, axis=1)
-
-    # 4. Calibrate & Freeze Threshold on Dev (if continuous scores or improved validator)
-    if "dev" in eval_df["split"].values and has_improved:
-        dev_sub = eval_df[eval_df["split"] == "dev"]
-        opt_thresh, dev_m = find_optimal_threshold_on_dev(
-            scores=dev_sub["improved_score"].values,
-            labels=dev_sub["ground_truth"].values,
-            max_fpr=0.05
-        )
-        save_frozen_threshold(frozen_path, "improved", opt_thresh, dev_m)
-
-    # 5. Compute Metrics Overall
-    validator_names = [v[0] for v in validators_to_run]
-    splits_present = [s for s in eval_df["split"].unique() if pd.notna(s)]
-    split_categories = list(splits_present)
-    if len(splits_present) > 1:
-        split_categories.append("all")
-
-    overall_rows = []
-    for split_val in split_categories:
-        sub_df = eval_df if split_val == "all" else eval_df[eval_df["split"] == split_val]
-        y_true = sub_df["ground_truth"].values
-
-        for val_name in validator_names:
-            y_pred = sub_df[f"{val_name}_flagged"].astype(int).values
-            m = compute_confusion_and_metrics(y_true, y_pred)
-            overall_rows.append({
-                "split": split_val,
-                "validator": val_name,
-                "TP": m["TP"],
-                "FP": m["FP"],
-                "TN": m["TN"],
-                "FN": m["FN"],
-                "recall": m["recall"],
-                "fpr": m["fpr"],
-                "precision": m["precision"],
-                "f1": m["f1"],
-                "fpr_constraint_pass": m["fpr_constraint_pass"]
-            })
-
-    metrics_overall = pd.DataFrame(overall_rows)
-    metrics_overall.to_csv(os.path.join(results_dir, "metrics_overall.csv"), index=False)
-
-    # 6. Pivot Comparison Table: Baseline vs Improved across Dev vs Heldout
-    pivoted_rows = []
-    for val_name in validator_names:
-        for split_val in ["dev", "heldout"]:
-            match = metrics_overall[(metrics_overall["validator"] == val_name) & (metrics_overall["split"] == split_val)]
-            if not match.empty:
-                r = match.iloc[0]
-                pivoted_rows.append({
-                    "Validator": val_name,
-                    "Split": split_val,
-                    "Recall (@ FPR<=5%)": r["recall"],
-                    "FPR": r["fpr"],
-                    "Precision": r["precision"],
-                    "F1": r["f1"],
-                    "Constraint Pass": r["fpr_constraint_pass"]
-                })
-    if pivoted_rows:
-        df_comparison = pd.DataFrame(pivoted_rows)
-        comp_path = os.path.join(results_dir, "comparison_dev_vs_heldout.csv")
-        df_comparison.to_csv(comp_path, index=False)
-        print(f"[OUTPUT] Saved comparison table to {comp_path}")
-
-    # 7. Metrics by Type
-    metrics_by_type = pd.DataFrame()
-    if "leakage_type" in eval_df.columns:
-        leaky_df = eval_df[eval_df["ground_truth"] == 1]
-        type_rows = []
-        types = sorted([t for t in leaky_df["leakage_type"].dropna().unique() if t not in ["none", "clean"]])
-
-        for split_val in split_categories:
-            sub = leaky_df if split_val == "all" else leaky_df[leaky_df["split"] == split_val]
-            for l_type in types:
-                type_sub = sub[sub["leakage_type"] == l_type]
-                n_c = len(type_sub)
-                if n_c == 0:
-                    continue
-                for val_name in validator_names:
-                    tp = int(type_sub[f"{val_name}_flagged"].sum())
-                    rec = safe_divide(tp, n_c)
-                    type_rows.append({
-                        "split": split_val,
-                        "validator": val_name,
-                        "leakage_type": l_type,
-                        "n": n_c,
-                        "tp": tp,
-                        "fn": n_c - tp,
-                        "recall": round(rec, 4)
-                    })
-        metrics_by_type = pd.DataFrame(type_rows)
-        if not metrics_by_type.empty:
-            metrics_by_type.to_csv(os.path.join(results_dir, "metrics_by_type.csv"), index=False)
-
-    # 8. Metrics by Severity
-    metrics_by_severity = pd.DataFrame()
-    if "severity" in eval_df.columns:
-        leaky_df = eval_df[eval_df["ground_truth"] == 1]
-        sev_rows = []
-        severities = [s for s in ["low", "medium", "high"] if s in leaky_df["severity"].unique()]
-
-        for split_val in split_categories:
-            sub = leaky_df if split_val == "all" else leaky_df[leaky_df["split"] == split_val]
-            for sev in severities:
-                sev_sub = sub[sub["severity"] == sev]
-                n_c = len(sev_sub)
-                if n_c == 0:
-                    continue
-                for val_name in validator_names:
-                    tp = int(sev_sub[f"{val_name}_flagged"].sum())
-                    rec = safe_divide(tp, n_c)
-                    sev_rows.append({
-                        "split": split_val,
-                        "validator": val_name,
-                        "severity": sev,
-                        "n": n_c,
-                        "tp": tp,
-                        "fn": n_c - tp,
-                        "recall": round(rec, 4)
-                    })
-        metrics_by_severity = pd.DataFrame(sev_rows)
-        if not metrics_by_severity.empty:
-            metrics_by_severity.to_csv(os.path.join(results_dir, "metrics_by_severity.csv"), index=False)
-
-    # 9. Predictions Export
-    pred_export_cols = [
-        "case_id", "split", "ground_truth",
-        "leakage_type" if "leakage_type" in eval_df.columns else None,
-        "severity" if "severity" in eval_df.columns else None,
-        "baseline_flagged", "baseline_root_cause",
-        "baseline_ingestion_flagged", "baseline_ingestion_root_cause"
-    ]
-    if has_improved:
-        pred_export_cols.extend(["improved_flagged", "improved_root_cause", "improved_reasons"])
-    pred_export_cols = [c for c in pred_export_cols if c is not None and c in eval_df.columns]
-    eval_df[pred_export_cols].to_csv(os.path.join(results_dir, "predictions.csv"), index=False)
-
-    # 10. Generate Visualizations
-    target_split = "heldout" if "heldout" in eval_df["split"].unique() else "dev"
-    sub_eval = eval_df[eval_df["split"] == target_split]
-    b_y_true = sub_eval["ground_truth"].values
-
-    for val_name in validator_names:
-        v_pred = sub_eval[f"{val_name}_flagged"].astype(int).values
-        vm = compute_confusion_and_metrics(b_y_true, v_pred)
-        plot_confusion_matrix(
-            tp=vm["TP"], fp=vm["FP"], tn=vm["TN"], fn=vm["FN"],
-            validator_name=val_name,
-            output_path=os.path.join(results_dir, f"confusion_{val_name}.png"),
-            split_name=target_split
-        )
-
-    if not metrics_by_type.empty:
-        plot_grouped_bar_chart(
-            df=metrics_by_type,
-            group_col="leakage_type",
-            metric_col="recall",
-            title="Recall by Leakage Type",
-            output_path=os.path.join(results_dir, "recall_by_type.png"),
-            split_name=target_split
-        )
-
-    if not metrics_by_severity.empty:
-        plot_grouped_bar_chart(
-            df=metrics_by_severity,
-            group_col="severity",
-            metric_col="recall",
-            title="Recall by Severity Level",
-            output_path=os.path.join(results_dir, "recall_by_severity.png"),
-            split_name=target_split
-        )
-
-    # Primary Metric Summary to Console
-    print("\n" + "="*70)
-    print(f"PRIMARY METRIC BENCHMARK REPORT: Leakage Recall @ FPR <= 5% [{target_split.upper()}]")
-    print("="*70)
-    split_metrics = metrics_overall[metrics_overall["split"] == target_split]
-    for _, r in split_metrics.iterrows():
-        status = "PASSED" if r["fpr_constraint_pass"] else "FAILED (FPR > 5%)"
-        print(f"Validator: {r['validator']:<20} | Recall: {r['recall']:.4f} | FPR: {r['fpr']:.4f} | [{status}]")
-    print("="*70 + "\n")
-
-    return {
-        "overall": metrics_overall,
-        "by_type": metrics_by_type,
-        "by_severity": metrics_by_severity,
-        "predictions": eval_df
-    }
+    from src.frozen_evaluation import run_frozen_evaluation
+    return run_frozen_evaluation(data_dir, results_dir, eval_split, strict=False)
 
 
 if __name__ == "__main__":
@@ -634,3 +383,4 @@ if __name__ == "__main__":
         run_evaluation(data_dir=d_dir, results_dir=r_dir, eval_split=args.split)
     except Exception as e:
         print(f"[EVALUATION ERROR] {e}")
+        raise SystemExit(1) from e

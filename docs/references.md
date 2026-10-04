@@ -1,0 +1,13 @@
+# Research references
+
+Verified 2026-10-04. The local repository contains a student brief, not a collection of research papers. External references below are primary research or official documentation. They motivate the design; they do not establish this project's measured performance.
+
+1. **Sayash Kapoor and Arvind Narayanan (2023).** *Leakage and the reproducibility crisis in machine-learning-based science.* **Patterns 4(9), 100804.** DOI: [10.1016/j.patter.2023.100804](https://doi.org/10.1016/j.patter.2023.100804). [Author paper, open full text](https://pmc.ncbi.nlm.nih.gov/articles/PMC10499856/). Supports claim A: leakage spans several mechanisms, including train/test contamination, rather than only future timestamps. The [2022 arXiv preprint](https://arxiv.org/abs/2207.07048) is an earlier version; its date is not the journal publication date.
+
+2. **Feast contributors.** *Point-in-time joins.* [Official documentation](https://docs.feast.dev/getting-started/concepts/point-in-time-joins), accessed 2026-10-04; no publication year asserted. Supports claim C: historical retrieval reconstructs feature states as of entity timestamps. For availability-time correctness (claim B), the documented created-timestamp filter excludes subsequently available values; event timestamps alone can admit later backfills. This project does not integrate Feast or implement a production feature store.
+
+3. **scikit-learn developers.** *Common pitfalls and recommended practices*, section 12.2, Data leakage. [Official documentation](https://scikit-learn.org/stable/common_pitfalls.html#data-leakage), accessed 2026-10-04; no publication year asserted. Supports claims B and D: unavailable-at-prediction information creates leakage, and learning normalization/feature-selection statistics with test data can contaminate evaluation even without a future feature timestamp. This project does not use scikit-learn as a dependency.
+
+4. **AICB - Data Lakehouse Open Research Challenge.** *Student Brief*, topic 12, “Point-in-Time Training Data Validator,” p. 18. Local file: [student brief](../lakehouse-open-research-challenges-student-brief.pdf). No author list, publication year, venue or DOI is asserted because they are not established by the relevant page. The brief asks for a timestamp baseline, generated labeled cases, held-out evaluation and Recall @ FPR <= 5%; it identifies current-state aggregates as a risk and makes the downstream model experiment optional.
+
+**Project-specific inference:** a feature timestamp can precede prediction while its aggregation window includes later events. This is directly embodied in `src/generate_data.py` and verified by validator tests; it is not a numerical result borrowed from the references.

@@ -55,9 +55,9 @@ def test_evaluate_public_interface():
     assert res["overall"]["recall"] == 1.0
 
 
-def test_end_to_end_mock_evaluation():
-    mock_data_dir = os.path.join(PROJECT_ROOT, "mock_data")
-    mock_results_dir = os.path.join(PROJECT_ROOT, "mock_results")
+def test_end_to_end_mock_evaluation(tmp_path):
+    mock_data_dir = str(tmp_path / "mock_data")
+    mock_results_dir = str(tmp_path / "mock_results")
     os.makedirs(mock_data_dir, exist_ok=True)
 
     sample_cases = [
@@ -69,6 +69,7 @@ def test_end_to_end_mock_evaluation():
 
     df_dev = pd.DataFrame(sample_cases)
     df_heldout = pd.DataFrame(sample_cases)
+    df_heldout["case_id"] = "H-" + df_heldout["case_id"]
     df_dev.to_csv(os.path.join(mock_data_dir, "dev_cases.csv"), index=False)
     df_heldout.to_csv(os.path.join(mock_data_dir, "heldout_cases.csv"), index=False)
 
@@ -85,5 +86,8 @@ def test_end_to_end_mock_evaluation():
 if __name__ == "__main__":
     test_baseline_logic()
     test_evaluate_public_interface()
-    test_end_to_end_mock_evaluation()
+    import tempfile
+    from pathlib import Path
+    with tempfile.TemporaryDirectory() as temp:
+        test_end_to_end_mock_evaluation(Path(temp))
     print("All enhanced evaluation and baseline tests passed!")

@@ -1,0 +1,6 @@
+probe,ground_truth,flagged,outcome,root_cause,cosine_similarity,reasons,warnings
+target alias outside the reviewed vocabulary,1,False,FN,none,,[],"[""feature_vector: vector is not a non-empty list; near-duplicate check skipped""]"
+"label copied into a feature table, label time not recorded",1,False,FN,none,,[],"[""label-timing check skipped: label_available_time missing"", ""feature_vector: vector is not a non-empty list; near-duplicate check skipped""]"
+benign HTTP status_code feature (generic alias name),0,True,FP,target_derived_leakage,,"[""target identifier 'status_code' found in feature_expression"", ""target identifier 'status_code' found in lineage_columns""]","[""feature_vector: vector is not a non-empty list; near-duplicate check skipped""]"
+cross-split near duplicate below the cosine threshold,1,False,FN,none,0.9916547546138346,[],[]
+benign shipping_label_length,0,False,TN,none,,[],"[""feature_vector: vector is not a non-empty list; near-duplicate check skipped""]"

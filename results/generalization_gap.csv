@@ -1,0 +1,4 @@
+validator,dev_recall,heldout_recall,dev_fpr,heldout_fpr,recall_gap,fpr_gap
+baseline,0.2,0.2,0.0,0.0,0.0,0.0
+baseline_ingestion,0.2,0.2,0.0,0.0,0.0,0.0
+improved,1.0,1.0,0.0,0.0,0.0,0.0

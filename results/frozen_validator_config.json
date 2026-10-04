@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "frozen_at_utc": "2026-10-04T10:43:39.759907+00:00",
+  "git_commit": "4b5e47f4d0678a0d8ea243fdb36069e2d78c8dba",
+  "git_worktree_status_at_freeze": [
+    " M .gitignore",
+    " M src/__pycache__/__init__.cpython-311.pyc",
+    " M src/__pycache__/baseline.cpython-311.pyc",
+    " M src/__pycache__/evaluate.cpython-311.pyc",
+    " M src/__pycache__/tune_validator.cpython-311.pyc",
+    " M src/__pycache__/validators.cpython-311.pyc",
+    " M src/evaluate.py",
+    " M tests/test_evaluation.py",
+    "?? docs/",
+    "?? pytest.ini",
+    "?? requirements.txt",
+    "?? results/environment_lock.txt",
+    "?? scripts/",
+    "?? src/frozen_evaluation.py",
+    "?? src/submission_reports.py",
+    "?? tests/__init__.py",
+    "?? tests/test_frozen_evaluation.py"
+  ],
+  "file_sha256": {
+    "src/validators.py": "484d752270d3602356413f14b39c49e6dfaabca207790206b449b37f2654cb49",
+    "src/baseline.py": "6504fdedbd10e8faa0ae546b6a3876353462c6edf2a1985287ff32b5d79eb9ca",
+    "src/generate_data.py": "e95acf210d7848881775b351620356d9a40a0eb6949d2e64796337e0dcea58c7",
+    "config/data_config.py": "15c360396912b9e397eac67a75dfd0a19fe2308e3eb939fadf000c9607d7a45a",
+    "config/validator_config.json": "fff9fecddc25fed46b0f5cfaaefeea21bda7445f185ed498b9368e34163b2e14",
+    "config/validator_vocabulary.json": "9d9437557e640538490a784eaa6fe55822a7c14e6ea9e4056f4785a88e64a460"
+  },
+  "data_sha256": {
+    "dev": "46d7db984b4ce253ce03fcac284e44498caad782977067fff826155537db6cdc",
+    "heldout": "0a86adb23891ed883342010737bf076e8d2d13d6c74ca67d852a21bebbe209c9"
+  },
+  "effective_config": {
+    "near_duplicate_threshold": 0.998,
+    "target_tokens": [
+      "target",
+      "label",
+      "outcome",
+      "churn_label",
+      "default_label",
+      "y_true",
+      "ground_truth",
+      "outcome_code",
+      "outcome_status",
+      "resolution_code",
+      "status_code"
+    ],
+    "label_tables": [
+      "labels",
+      "training_labels",
+      "outcomes",
+      "target_events"
+    ],
+    "label_roles": [
+      "label",
+      "target"
+    ],
+    "temporal_tolerance_seconds": 0.0,
+    "naive_utc_offset_hours": 0.0,
+    "enabled_checks": [
+      "temporal",
+      "future_aggregation",
+      "target_lineage",
+      "label_relation",
+      "label_timing",
+      "duplication"
+    ],
+    "columns": {
+      "prediction_time": "prediction_time",
+      "feature_time": "feature_time",
+      "aggregation_window_end": "aggregation_window_end",
+      "source_max_event_time": "source_max_event_time",
+      "label_available_time": "label_available_time",
+      "feature_expression": "feature_expression",
+      "lineage_columns": "lineage_columns",
+      "source_role": "source_role",
+      "source_table": "source_table",
+      "exact_duplicate_hash": "exact_duplicate_hash",
+      "other_split_hash": "other_split_hash",
+      "feature_vector": "feature_vector",
+      "other_split_vector": "other_split_vector"
+    }
+  },
+  "file_normalized_sha256": {
+    "src/validators.py": "c49de351c719f04fa236d6080303f8c1812819257dbbadf4622ed630ad593e63",
+    "src/baseline.py": "b17bcd1a20bf94620e18d3f72b2edf11ffbdf9468ac96c4819f417160be2d91c",
+    "src/generate_data.py": "23e31056756b947c068701990403b9dbbe8d96ced104cf461bb006f260f20a71",
+    "config/data_config.py": "003dc66013b83ef74beb2dd0766b20f8ffc290693e40661961cdac86c072f3ca",
+    "config/validator_config.json": "860c85cecd416266b8191fed9375ee781b27a74de7c0d0673ec0fc2963902a73",
+    "config/validator_vocabulary.json": "af06be8152efe800a47740193c2cc05ad710655e125fbb1f47dc37e845634c88"
+  },
+  "data_normalized_sha256": {
+    "dev": "e57c008016f86e1f933a85253736d6743981e532d5044fab3a93b2072e7a300c",
+    "heldout": "d2c38560f097bc11c03c47cae347dc5f1e72391589e33fc96540236289ff7625"
+  },
+  "hash_policy": "Raw SHA-256 records original bytes; verification permits CRLF/LF conversion only using additional normalized hashes.",
+  "root_cause_priority": [
+    "temporal_leakage",
+    "future_aggregation_leakage",
+    "label_relation_leakage",
+    "target_derived_leakage",
+    "duplication_leakage"
+  ],
+  "check_order": [
+    "temporal",
+    "future_aggregation",
+    "target_lineage",
+    "label_relation",
+    "label_timing",
+    "duplication"
+  ],
+  "agent3_tuning_provenance": {
+    "tuned_on": "data/dev_cases.csv",
+    "dev_sha256": "46d7db984b4ce253ce03fcac284e44498caad782977067fff826155537db6cdc",
+    "rows": 180,
+    "rows_skipped_no_truth": 0,
+    "dev_missing_columns": [],
+    "vocabulary_file": "config/validator_vocabulary.json",
+    "vocabulary_added": {
+      "target_tokens": [
+        "outcome_code",
+        "outcome_status",
+        "resolution_code",
+        "status_code"
+      ]
+    },
+    "tuned_at": "2026-10-04 17:18:12",
+    "searched": "near_duplicate_threshold",
+    "grid": [
+      0.9,
+      0.95,
+      0.97,
+      0.98,
+      0.99,
+      0.993,
+      0.995,
+      0.997,
+      0.998,
+      0.999,
+      0.9995,
+      0.9999,
+      1.0
+    ],
+    "rule": "max dev recall subject to dev FPR <= 0.05; ties -> lower FPR -> higher threshold",
+    "fpr_target_met": true,
+    "dev_metrics": {
+      "tp": 120,
+      "fp": 0,
+      "fn": 0,
+      "tn": 60,
+      "recall": 1.0,
+      "fpr": 0.0,
+      "precision": 1.0,
+      "f1": 1.0
+    },
+    "heldout_read": false
+  },
+  "prediction_policy": "Use original binary flagged decisions; no additional score threshold or calibration.",
+  "heldout_content_parsed_by_this_evaluator_before_freeze": false,
+  "prior_heldout_artifacts_present": true,
+  "audit_limit": "This snapshot proves freeze ordering for this independent rerun only. Earlier held-out metrics already existed in the supplied repo; historical blindness cannot be certified."
+}

@@ -1,7 +1,4 @@
 split,validator,TP,FP,TN,FN,recall,fpr,precision,f1,fpr_constraint_pass
-dev,baseline,24,0,60,96,0.2,0.0,1.0,0.3333333333333333,True
-dev,baseline_ingestion,24,0,60,96,0.2,0.0,1.0,0.3333333333333333,True
-dev,improved,120,0,60,0,1.0,0.0,1.0,1.0,True
 heldout,baseline,16,0,40,64,0.2,0.0,1.0,0.3333333333333333,True
 heldout,baseline_ingestion,16,0,40,64,0.2,0.0,1.0,0.3333333333333333,True
 heldout,improved,80,0,40,0,1.0,0.0,1.0,1.0,True
