@@ -4,8 +4,9 @@
     python -m src.tune_validator --dev path/to/dev.csv
 
 Only near_duplicate_threshold is searched numerically. TARGET_TOKENS / LABEL_TABLES stay a
-controlled vocabulary edited by hand with a semantic reason; the report shows which gates
-produce false positives on dev so that edits are evidence-based.
+controlled vocabulary edited by hand with a semantic reason in config/validator_vocabulary.json
+(merged here into the frozen config); the report shows which gates produce false positives on
+dev and which leaky rows are missed, so that edits are evidence-based.
 
 Ground-truth columns are read here, only to score the validator on dev. Every row is stripped
 of them before it reaches the validator. Any path that looks like a held-out split is refused.
@@ -24,11 +25,13 @@ from pathlib import Path
 from typing import Any
 
 try:
-    from src.validators import (CHECK_NAMES, GROUND_TRUTH_FIELDS, ROOT_CAUSE_PRIORITY, ImprovedValidator,
-                                ValidatorConfig, is_missing)
+    from src.validators import (CHECK_NAMES, DUPLICATION, FUTURE_AGGREGATION, GROUND_TRUTH_FIELDS, LABEL_RELATION,
+                                ROOT_CAUSE_PRIORITY, TARGET_DERIVED, TEMPORAL, ImprovedValidator, ValidatorConfig,
+                                is_missing)
 except ImportError:                        # executed as a script from inside src/
-    from validators import (CHECK_NAMES, GROUND_TRUTH_FIELDS, ROOT_CAUSE_PRIORITY, ImprovedValidator,
-                            ValidatorConfig, is_missing)
+    from validators import (CHECK_NAMES, DUPLICATION, FUTURE_AGGREGATION, GROUND_TRUTH_FIELDS, LABEL_RELATION,
+                            ROOT_CAUSE_PRIORITY, TARGET_DERIVED, TEMPORAL, ImprovedValidator, ValidatorConfig,
+                            is_missing)
 
 ROOT = Path(__file__).resolve().parents[1]
 THRESHOLD_GRID = [0.90, 0.95, 0.97, 0.98, 0.99, 0.993, 0.995, 0.997, 0.998, 0.999, 0.9995, 0.9999, 1.0]
@@ -36,11 +39,65 @@ FPR_LIMIT = 0.05
 HELDOUT_MARKERS = ("heldout", "held_out", "held-out", "holdout")
 TRUE_VALUES = {"1", "1.0", "true", "t", "yes", "y", "leak", "leaky", "leakage", "positive"}
 FALSE_VALUES = {"0", "0.0", "false", "f", "no", "n", "clean", "none", "no_leakage", "negative", "ok"}
+VOCAB_KEYS = ("target_tokens", "label_tables", "label_roles")
+
+# Team data contract (config/data_config.py LEAKAGE_TYPES) -> the root cause the validator should report.
+# Used only to score root-cause localization on dev.
+EXPECTED_CAUSE = {"direct_temporal": TEMPORAL, "future_aggregation": FUTURE_AGGREGATION,
+                  "target_derived": TARGET_DERIVED, "label_source": LABEL_RELATION, "duplication": DUPLICATION}
+
+# Hand-made rows (neither dev nor held-out) that probe known blind spots of the frozen config.
+PROBE_BASE = {
+    "prediction_time": "2026-03-01T10:00Z", "feature_time": "2026-03-01T09:30Z",
+    "aggregation_window_end": "2026-03-01T09:30Z", "source_max_event_time": "2026-03-01T09:30Z",
+    "label_available_time": "2026-03-01T16:00Z", "feature_expression": "latest(account_balance)",
+    "lineage_columns": '["account_balance"]', "source_table": "account_events", "source_role": "feature",
+    "feature_vector": "[]", "other_split_vector": "[]", "exact_duplicate_hash": "", "other_split_hash": "",
+}
+PROBES = (  # (description, truly leaky, overrides)
+    ("target alias outside the reviewed vocabulary", True,
+     {"feature_expression": "latest(claim_settlement_flag)", "lineage_columns": '["claim_settlement_flag"]'}),
+    ("label copied into a feature table, label time not recorded", True,
+     {"feature_expression": "latest(final_decision)", "lineage_columns": '["final_decision"]',
+      "source_table": "decision_snapshot", "label_available_time": ""}),
+    ("benign HTTP status_code feature (generic alias name)", False,
+     {"feature_expression": "count_if(status_code >= 500, window='1h')",
+      "lineage_columns": '["status_code", "request_time"]', "source_table": "web_logs"}),
+    ("cross-split near duplicate below the cosine threshold", True,
+     {"feature_vector": "[1.0, 2.0, 3.0, 4.0]", "other_split_vector": "[1.3, 1.7, 3.4, 3.6]"}),
+)
 
 
 def assert_dev_only(path: Path) -> None:
     if any(m in str(path).lower() for m in HELDOUT_MARKERS):
         raise SystemExit(f"Refusing to read {path}: tuning must use the dev split only.")
+
+
+def rel(path: Path) -> str:
+    """Repo-relative path when possible, so the frozen config does not embed one machine's layout."""
+    try:
+        return path.resolve().relative_to(ROOT).as_posix()
+    except ValueError:
+        return str(path)
+
+
+def load_vocabulary(path: Path | None) -> dict[str, dict[str, str]]:
+    """{list name: {entry: reason}} from the hand-curated vocabulary file; {} if there is none."""
+    if path is None or not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    vocab = {}
+    for key in VOCAB_KEYS:
+        entries = data.get(key) or {}
+        if not isinstance(entries, dict) or not all(isinstance(r, str) and r.strip() for r in entries.values()):
+            raise SystemExit(f"{path}: '{key}' must map each entry to a non-empty reason")
+        vocab[key] = entries
+    return vocab
+
+
+def with_vocabulary(cfg: ValidatorConfig, vocab: dict[str, dict[str, str]]) -> ValidatorConfig:
+    return dataclasses.replace(cfg, **{key: getattr(cfg, key) + [e for e in entries if e not in getattr(cfg, key)]
+                                       for key, entries in vocab.items()})
 
 
 def truth_of(row: dict[str, str]) -> bool | None:
@@ -79,6 +136,13 @@ def run(cfg: ValidatorConfig, rows: list[dict[str, Any]], truth: list[bool]):
     return preds, score(preds, truth)
 
 
+def localization(preds: list[dict[str, Any]], truth: list[bool], types: list[str]) -> tuple[int, int]:
+    """(correct, total) root causes over flagged leaky rows whose leakage_type has an expected cause."""
+    pairs = [(p["root_cause"], EXPECTED_CAUSE[ty]) for p, t, ty in zip(preds, truth, types)
+             if t and p["flagged"] and ty in EXPECTED_CAUSE]
+    return sum(got == want for got, want in pairs), len(pairs)
+
+
 def f3(x: float) -> str:
     return "n/a" if x != x else f"{x:.3f}"
 
@@ -88,8 +152,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--dev", default=str(ROOT / "data" / "dev_cases.csv"))
     ap.add_argument("--config-out", default=str(ROOT / "config" / "validator_config.json"))
     ap.add_argument("--report-out", default=str(ROOT / "reports" / "validator_dev_tuning.md"))
+    ap.add_argument("--vocab", default=str(ROOT / "config" / "validator_vocabulary.json"),
+                    help="hand-curated vocabulary merged into the config; '' for built-in defaults only")
     ap.add_argument("--grid", type=float, nargs="+", default=THRESHOLD_GRID)
     args = ap.parse_args(argv)
+    vocab_path = Path(args.vocab) if args.vocab else None
+    vocab = load_vocabulary(vocab_path)
 
     dev_path = Path(args.dev)
     assert_dev_only(dev_path)
@@ -107,6 +175,7 @@ def main(argv: list[str] | None = None) -> int:
     if missing_cols:
         print(f"WARNING: dev has no column(s) {missing_cols}; the gates reading them will be skipped. "
               f"Map the dev names via ValidatorConfig.columns if they are only spelled differently.")
+    base = with_vocabulary(base, vocab)
 
     labelled = [(r, truth_of(r)) for r in raw]
     skipped = sum(t is None for _, t in labelled)
@@ -130,10 +199,16 @@ def main(argv: list[str] | None = None) -> int:
     final_cfg = dataclasses.replace(base, near_duplicate_threshold=best_t)
     preds, final = run(final_cfg, rows, truth)
 
-    ablations = [("temporal gate only (brief baseline rule)", ["temporal"])]
-    ablations += [(f"without {name}", [n for n in CHECK_NAMES if n != name]) for name in CHECK_NAMES]
-    ablation_rows = [(label, run(dataclasses.replace(final_cfg, enabled_checks=checks), rows, truth)[1])
-                     for label, checks in ablations]
+    ablations = [("temporal gate only (brief baseline rule)", dataclasses.replace(final_cfg, enabled_checks=["temporal"]))]
+    ablations += [(f"without {name}", dataclasses.replace(final_cfg, enabled_checks=[n for n in CHECK_NAMES if n != name]))
+                  for name in CHECK_NAMES]
+    if any(vocab.values()):
+        ablations.append(("without dev-reviewed vocabulary (built-in only)",
+                          dataclasses.replace(final_cfg, **{k: getattr(ValidatorConfig(), k) for k in VOCAB_KEYS})))
+    ablation_rows = []
+    for label, cfg in ablations:
+        p, m = run(cfg, rows, truth)
+        ablation_rows.append((label, m, localization(p, truth, types)))
 
     gate_leaky, gate_clean, gate_sole_fp = Counter(), Counter(), Counter()
     for p, t in zip(preds, truth):
@@ -146,12 +221,18 @@ def main(argv: list[str] | None = None) -> int:
     for p, t, ty in zip(preds, truth, types):
         by_type[ty].append((p, t))
 
+    located_ok, located_n = localization(preds, truth, types)
+
+    probe_validator = ImprovedValidator(final_cfg)
+    probes = [(desc, leaky, probe_validator.validate({**PROBE_BASE, **overrides})) for desc, leaky, overrides in PROBES]
+
     cfg_out = Path(args.config_out)
     cfg_out.parent.mkdir(parents=True, exist_ok=True)
     frozen = final_cfg.to_dict()
     frozen["tuning"] = dict(
-        tuned_on=str(dev_path), dev_sha256=digest, rows=len(rows), rows_skipped_no_truth=skipped,
-        dev_missing_columns=missing_cols,
+        tuned_on=rel(dev_path), dev_sha256=digest, rows=len(rows), rows_skipped_no_truth=skipped,
+        dev_missing_columns=missing_cols, vocabulary_file=rel(vocab_path) if vocab else None,
+        vocabulary_added={key: sorted(entries) for key, entries in vocab.items() if entries},
         tuned_at=time.strftime("%Y-%m-%d %H:%M:%S"), searched="near_duplicate_threshold", grid=sorted(set(args.grid)),
         rule=f"max dev recall subject to dev FPR <= {FPR_LIMIT}; ties -> lower FPR -> higher threshold",
         fpr_target_met=bool(feasible),
@@ -168,6 +249,18 @@ def main(argv: list[str] | None = None) -> int:
     if missing_cols:
         w(f"**Schema warning:** dev has no column(s) {', '.join(f'`{c}`' for c in missing_cols)}; "
           "the gates reading them were skipped on every row.\n")
+    w("## Dev-reviewed vocabulary\n")
+    if any(vocab.values()):
+        w(f"Merged from `{rel(vocab_path)}` on top of the built-in defaults. Each entry was added by hand after "
+          "reading missed dev rows; the reason is the semantic justification.\n")
+        w("| List | Entry | Reason |")
+        w("|---|---|---|")
+        for key, entries in vocab.items():
+            for entry, reason in entries.items():
+                w(f"| {key} | `{entry}` | {reason} |")
+        w("")
+    else:
+        w("None: built-in defaults only.\n")
     w("## near_duplicate_threshold sweep\n")
     w("| Threshold | Recall | FPR | Precision | F1 | TP/FN/FP/TN | FPR <= 5% |")
     w("|---|---|---|---|---|---|---|")
@@ -186,11 +279,11 @@ def main(argv: list[str] | None = None) -> int:
     for cause in ROOT_CAUSE_PRIORITY:
         w(f"| {cause} | {gate_leaky[cause]} | {gate_clean[cause]} | {gate_sole_fp[cause]} |")
     w("\n## Ablation on dev\n")
-    w("| Configuration | Recall | FPR |")
-    w("|---|---|---|")
-    w(f"| all five gates | {f3(final['recall'])} | {f3(final['fpr'])} |")
-    for label, m in ablation_rows:
-        w(f"| {label} | {f3(m['recall'])} | {f3(m['fpr'])} |")
+    w("| Configuration | Recall | FPR | Root cause correct (flagged leaky rows) |")
+    w("|---|---|---|---|")
+    w(f"| all gates | {f3(final['recall'])} | {f3(final['fpr'])} | {located_ok}/{located_n} |")
+    for label, m, (ok, n) in ablation_rows:
+        w(f"| {label} | {f3(m['recall'])} | {f3(m['fpr'])} | {ok}/{n} |")
     w("\n## Per leakage_type (dev; leakage_type read for evaluation only)\n")
     w("| leakage_type | Rows | Flagged | Root causes assigned |")
     w("|---|---|---|---|")
@@ -199,6 +292,10 @@ def main(argv: list[str] | None = None) -> int:
         roots = Counter(p["root_cause"] for p, _ in items)
         w(f"| {ty} | {len(items)} | {sum(p['flagged'] for p, _ in items)} | "
           + ", ".join(f"{k}: {v}" for k, v in roots.most_common()) + " |")
+    if located_n:
+        w(f"\nRoot-cause localization on flagged leaky dev rows: **{located_ok}/{located_n}** "
+          f"({located_ok / located_n:.1%}) report the cause expected for their leakage_type "
+          f"({', '.join(f'{k} -> {v}' for k, v in EXPECTED_CAUSE.items())}).")
     missed = [(i, ty, p) for i, ty, p, t in zip(ids, types, preds, truth) if t and not p["flagged"]]
     fps = [(i, ty, p) for i, ty, p, t in zip(ids, types, preds, truth) if not t and p["flagged"]]
     w(f"\n## Missed leaky dev rows ({len(missed)}; first 40)\n")
@@ -212,7 +309,16 @@ def main(argv: list[str] | None = None) -> int:
     w("|---|---|---|")
     for i, ty, p in fps[:40]:
         w(f"| {i} | {p['root_cause']} | {'; '.join(p['reasons'])} |")
-    w(f"\nFrozen config: `{cfg_out}`.")
+    w("\n## Known blind spots (hand-made probe rows, not dev or held-out)\n")
+    w("The held-out split reuses the generator's leakage templates and alias names, so held-out recall measures "
+      "coverage of known patterns. These probes run the frozen config on patterns it was not built for.\n")
+    w("| Probe | Truly leaky | Flagged | Outcome | Root cause |")
+    w("|---|---|---|---|---|")
+    for desc, leaky, p in probes:
+        outcome = {(True, True): "TP", (True, False): "FN (missed)", (False, True): "FP", (False, False): "TN"}
+        w(f"| {desc} | {'yes' if leaky else 'no'} | {'yes' if p['flagged'] else 'no'} | "
+          f"{outcome[(leaky, p['flagged'])]} | {p['root_cause']} |")
+    w(f"\nFrozen config: `{rel(cfg_out)}`.")
 
     rep_out = Path(args.report_out)
     rep_out.parent.mkdir(parents=True, exist_ok=True)

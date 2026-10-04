@@ -1,0 +1,9 @@
+{
+  "_about": "Hand-curated vocabulary merged into the frozen validator config by src/tune_validator.py. Every entry needs a semantic reason and dev evidence; the held-out split was never read to build it. Built-in defaults in src/validators.py stay generic.",
+  "target_tokens": {
+    "outcome_code": "Coded case outcome, i.e. the value being predicted. Dev: TARGET-DERIVED latest(outcome_code); LABEL-SOURCE status_transition_rank(outcome_code).",
+    "outcome_status": "Label column of the governed `labels` table. Dev: LABEL-SOURCE latest(outcome_status).",
+    "resolution_code": "How a ticket / claim was resolved; written only once the outcome is known. Dev: TARGET-DERIVED rolling_mean(resolution_code) and resolution_velocity(ticket_history) lineage.",
+    "status_code": "Terminal case status, which encodes the outcome. Dev: TARGET-DERIVED status_transition_rank(status_code); LABEL-SOURCE latest(status_code). Generic name: a benign HTTP status_code feature becomes a false positive (see probes)."
+  }
+}

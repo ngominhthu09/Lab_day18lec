@@ -10,10 +10,10 @@ dev,baseline_ingestion,future_aggregation,24,0,24,0.0
 dev,improved,future_aggregation,24,24,0,1.0
 dev,baseline,label_source,24,0,24,0.0
 dev,baseline_ingestion,label_source,24,0,24,0.0
-dev,improved,label_source,24,6,18,0.25
+dev,improved,label_source,24,24,0,1.0
 dev,baseline,target_derived,24,0,24,0.0
 dev,baseline_ingestion,target_derived,24,0,24,0.0
-dev,improved,target_derived,24,0,24,0.0
+dev,improved,target_derived,24,24,0,1.0
 heldout,baseline,direct_temporal,16,16,0,1.0
 heldout,baseline_ingestion,direct_temporal,16,16,0,1.0
 heldout,improved,direct_temporal,16,16,0,1.0
@@ -25,10 +25,10 @@ heldout,baseline_ingestion,future_aggregation,16,0,16,0.0
 heldout,improved,future_aggregation,16,16,0,1.0
 heldout,baseline,label_source,16,0,16,0.0
 heldout,baseline_ingestion,label_source,16,0,16,0.0
-heldout,improved,label_source,16,4,12,0.25
+heldout,improved,label_source,16,16,0,1.0
 heldout,baseline,target_derived,16,0,16,0.0
 heldout,baseline_ingestion,target_derived,16,0,16,0.0
-heldout,improved,target_derived,16,0,16,0.0
+heldout,improved,target_derived,16,16,0,1.0
 all,baseline,direct_temporal,40,40,0,1.0
 all,baseline_ingestion,direct_temporal,40,40,0,1.0
 all,improved,direct_temporal,40,40,0,1.0
@@ -40,7 +40,7 @@ all,baseline_ingestion,future_aggregation,40,0,40,0.0
 all,improved,future_aggregation,40,40,0,1.0
 all,baseline,label_source,40,0,40,0.0
 all,baseline_ingestion,label_source,40,0,40,0.0
-all,improved,label_source,40,10,30,0.25
+all,improved,label_source,40,40,0,1.0
 all,baseline,target_derived,40,0,40,0.0
 all,baseline_ingestion,target_derived,40,0,40,0.0
-all,improved,target_derived,40,0,40,0.0
+all,improved,target_derived,40,40,0,1.0

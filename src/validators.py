@@ -1,23 +1,26 @@
 """Improved multi-signal point-in-time leakage validator.
 
-Five independent quality gates, each cheap per row:
+Six independent quality gates, each cheap per row:
 
   1. temporal            feature_time > prediction_time                                  O(1)
   2. future aggregation  aggregation_window_end or source_max_event_time > prediction_time O(1)
   3. target lineage      controlled target vocabulary in feature_expression / lineage     O(L)
   4. label relation      source_role is a label role, or source_table is a governed table O(1)
-  5. duplication         exact hash match with the other split, else cosine >= threshold  O(d)
+  5. label timing        label_available_time <= prediction_time (label already recorded) O(1)
+  6. duplication         exact hash match with the other split, else cosine >= threshold  O(d)
 
 All timestamps are normalised to UTC before comparison (naive values are interpreted with
 `naive_utc_offset_hours`). The validator never reads ground-truth columns: they are dropped
 from the row before any check runs.
 
 Root-cause priority (first detected cause wins, all causes are kept in `detected_causes`):
-  temporal > future aggregation > target-derived > label relation > duplication
+  temporal > future aggregation > label relation > target-derived > duplication
 Rationale: row-level evidence of future data is the most direct point-in-time violation;
-an aggregate over future events is the same violation hidden inside a window; target-derived
-and label-table features leak the label regardless of timing; duplication is split
-contamination rather than a temporal defect, and its fix (dedup across splits) is different.
+an aggregate over future events is the same violation hidden inside a window; a label source
+(governed label table / role, or a label recorded before the prediction, gates 4 and 5) is
+metadata evidence and outranks target-derived, which rests on column names only; duplication
+is split contamination rather than a temporal defect, and its fix (dedup across splits) is
+different.
 """
 from __future__ import annotations
 
@@ -39,8 +42,8 @@ LABEL_RELATION = "label_relation_leakage"
 DUPLICATION = "duplication_leakage"
 NO_LEAKAGE = "none"
 
-ROOT_CAUSE_PRIORITY = (TEMPORAL, FUTURE_AGGREGATION, TARGET_DERIVED, LABEL_RELATION, DUPLICATION)
-CHECK_NAMES = ("temporal", "future_aggregation", "target_lineage", "label_relation", "duplication")
+ROOT_CAUSE_PRIORITY = (TEMPORAL, FUTURE_AGGREGATION, LABEL_RELATION, TARGET_DERIVED, DUPLICATION)
+CHECK_NAMES = ("temporal", "future_aggregation", "target_lineage", "label_relation", "label_timing", "duplication")
 
 # Evaluation-only columns. They are removed from every row before the checks see it.
 GROUND_TRUTH_FIELDS = frozenset({"ground_truth", "is_leakage", "leakage_type", "severity"})
@@ -56,6 +59,7 @@ class ColumnMap:
     feature_time: str = "feature_time"
     aggregation_window_end: str = "aggregation_window_end"
     source_max_event_time: str = "source_max_event_time"
+    label_available_time: str = "label_available_time"
     feature_expression: str = "feature_expression"
     lineage_columns: str = "lineage_columns"
     source_role: str = "source_role"
@@ -318,6 +322,7 @@ class ImprovedValidator:
             "future_aggregation": self._check_future_aggregation,
             "target_lineage": self._check_target_lineage,
             "label_relation": self._check_label_relation,
+            "label_timing": self._check_label_timing,
             "duplication": self._check_duplication,
         }
         self._checks = [(name, registry[name]) for name in CHECK_NAMES if name in config.enabled_checks]
@@ -484,6 +489,28 @@ class ImprovedValidator:
         return res
 
     # ---- gate 5
+
+    def _check_label_timing(self, view: Mapping[str, Any]) -> CheckResult:
+        """A label must become known after the prediction it scores. If it is already recorded at
+        prediction_time, an as-of feature read from the same entity can contain it (e.g. a status
+        column that already holds the outcome), however old the feature timestamp is."""
+        res = CheckResult()
+        c = self._cols
+        pred = self._timestamp(view, c.prediction_time, res)
+        label = self._timestamp(view, c.label_available_time, res)
+        if pred is None or label is None:
+            missing = [n for n, v in ((c.prediction_time, pred), (c.label_available_time, label)) if v is None]
+            res.warnings.append(f"label-timing check skipped: {', '.join(missing)} missing")
+            return res
+        lead = label - pred
+        res.scores["label_lead_seconds"] = lead.total_seconds()
+        if lead <= -self._tolerance:
+            res.cause = LABEL_RELATION
+            res.reasons.append(f"label_available_time {_fmt_ts(label)} is at or before prediction_time "
+                               f"{_fmt_ts(pred)} by {_fmt_lag(-lead)}: the label is already recorded when features are read")
+        return res
+
+    # ---- gate 6
 
     def _check_duplication(self, view: Mapping[str, Any]) -> CheckResult:
         res = CheckResult()

@@ -107,54 +107,54 @@ AGGREGATION-020,dev,1,future_aggregation,high,False,none,False,none,True,future_
 AGGREGATION-021,dev,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-24T08:01:00+00:00 exceeds prediction_time 2026-01-24T07:31:00+00:00 by 1800 s; source_max_event_time 2026-01-24T07:51:00+00:00 exceeds prediction_time 2026-01-24T07:31:00+00:00 by 1200 s
 AGGREGATION-022,dev,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-24T17:42:00+00:00 exceeds prediction_time 2026-01-24T14:42:00+00:00 by 3.00 h; source_max_event_time 2026-01-24T17:32:00+00:00 exceeds prediction_time 2026-01-24T14:42:00+00:00 by 2.83 h
 AGGREGATION-023,dev,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-25T21:53:00+00:00 exceeds prediction_time 2026-01-24T21:53:00+00:00 by 24.00 h; source_max_event_time 2026-01-25T21:43:00+00:00 exceeds prediction_time 2026-01-24T21:53:00+00:00 by 23.83 h
-TARGET-DERIVED-000,dev,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-001,dev,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-002,dev,1,target_derived,high,False,none,False,none,False,none,
-TARGET-DERIVED-003,dev,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-004,dev,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-005,dev,1,target_derived,high,False,none,False,none,False,none,
-TARGET-DERIVED-006,dev,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-007,dev,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-008,dev,1,target_derived,high,False,none,False,none,False,none,
-TARGET-DERIVED-009,dev,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-010,dev,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-011,dev,1,target_derived,high,False,none,False,none,False,none,
-TARGET-DERIVED-012,dev,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-013,dev,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-014,dev,1,target_derived,high,False,none,False,none,False,none,
-TARGET-DERIVED-015,dev,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-016,dev,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-017,dev,1,target_derived,high,False,none,False,none,False,none,
-TARGET-DERIVED-018,dev,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-019,dev,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-020,dev,1,target_derived,high,False,none,False,none,False,none,
-TARGET-DERIVED-021,dev,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-022,dev,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-023,dev,1,target_derived,high,False,none,False,none,False,none,
-LABEL-SOURCE-000,dev,1,label_source,low,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
-LABEL-SOURCE-001,dev,1,label_source,medium,False,none,False,none,False,none,
-LABEL-SOURCE-002,dev,1,label_source,high,False,none,False,none,False,none,
-LABEL-SOURCE-003,dev,1,label_source,low,False,none,False,none,False,none,
-LABEL-SOURCE-004,dev,1,label_source,medium,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
-LABEL-SOURCE-005,dev,1,label_source,high,False,none,False,none,False,none,
-LABEL-SOURCE-006,dev,1,label_source,low,False,none,False,none,False,none,
-LABEL-SOURCE-007,dev,1,label_source,medium,False,none,False,none,False,none,
-LABEL-SOURCE-008,dev,1,label_source,high,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
-LABEL-SOURCE-009,dev,1,label_source,low,False,none,False,none,False,none,
-LABEL-SOURCE-010,dev,1,label_source,medium,False,none,False,none,False,none,
-LABEL-SOURCE-011,dev,1,label_source,high,False,none,False,none,False,none,
-LABEL-SOURCE-012,dev,1,label_source,low,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
-LABEL-SOURCE-013,dev,1,label_source,medium,False,none,False,none,False,none,
-LABEL-SOURCE-014,dev,1,label_source,high,False,none,False,none,False,none,
-LABEL-SOURCE-015,dev,1,label_source,low,False,none,False,none,False,none,
-LABEL-SOURCE-016,dev,1,label_source,medium,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
-LABEL-SOURCE-017,dev,1,label_source,high,False,none,False,none,False,none,
-LABEL-SOURCE-018,dev,1,label_source,low,False,none,False,none,False,none,
-LABEL-SOURCE-019,dev,1,label_source,medium,False,none,False,none,False,none,
-LABEL-SOURCE-020,dev,1,label_source,high,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
-LABEL-SOURCE-021,dev,1,label_source,low,False,none,False,none,False,none,
-LABEL-SOURCE-022,dev,1,label_source,medium,False,none,False,none,False,none,
-LABEL-SOURCE-023,dev,1,label_source,high,False,none,False,none,False,none,
+TARGET-DERIVED-000,dev,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in feature_expression; target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-001,dev,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+TARGET-DERIVED-002,dev,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+TARGET-DERIVED-003,dev,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-004,dev,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in feature_expression; target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-005,dev,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+TARGET-DERIVED-006,dev,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+TARGET-DERIVED-007,dev,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-008,dev,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in feature_expression; target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-009,dev,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+TARGET-DERIVED-010,dev,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+TARGET-DERIVED-011,dev,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-012,dev,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in feature_expression; target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-013,dev,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+TARGET-DERIVED-014,dev,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+TARGET-DERIVED-015,dev,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-016,dev,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in feature_expression; target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-017,dev,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+TARGET-DERIVED-018,dev,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+TARGET-DERIVED-019,dev,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-020,dev,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in feature_expression; target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-021,dev,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+TARGET-DERIVED-022,dev,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+TARGET-DERIVED-023,dev,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in lineage_columns
+LABEL-SOURCE-000,dev,1,label_source,low,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table; label_available_time 2026-01-13T12:15:00+00:00 is at or before prediction_time 2026-01-13T12:20:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_status' found in feature_expression; target identifier 'outcome_status' found in lineage_columns
+LABEL-SOURCE-001,dev,1,label_source,medium,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-13T19:26:00+00:00 is at or before prediction_time 2026-01-13T19:31:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-002,dev,1,label_source,high,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-14T02:37:00+00:00 is at or before prediction_time 2026-01-14T02:42:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+LABEL-SOURCE-003,dev,1,label_source,low,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-14T09:48:00+00:00 is at or before prediction_time 2026-01-14T09:53:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-004,dev,1,label_source,medium,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table; label_available_time 2026-01-14T15:59:00+00:00 is at or before prediction_time 2026-01-14T16:04:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_status' found in feature_expression; target identifier 'outcome_status' found in lineage_columns
+LABEL-SOURCE-005,dev,1,label_source,high,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-14T23:10:00+00:00 is at or before prediction_time 2026-01-14T23:15:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-006,dev,1,label_source,low,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-15T06:21:00+00:00 is at or before prediction_time 2026-01-15T06:26:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+LABEL-SOURCE-007,dev,1,label_source,medium,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-15T13:32:00+00:00 is at or before prediction_time 2026-01-15T13:37:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-008,dev,1,label_source,high,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table; label_available_time 2026-01-15T20:43:00+00:00 is at or before prediction_time 2026-01-15T20:48:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_status' found in feature_expression; target identifier 'outcome_status' found in lineage_columns
+LABEL-SOURCE-009,dev,1,label_source,low,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-16T03:54:00+00:00 is at or before prediction_time 2026-01-16T03:59:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-010,dev,1,label_source,medium,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-16T10:05:00+00:00 is at or before prediction_time 2026-01-16T10:10:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+LABEL-SOURCE-011,dev,1,label_source,high,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-16T17:16:00+00:00 is at or before prediction_time 2026-01-16T17:21:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-012,dev,1,label_source,low,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table; label_available_time 2026-01-17T00:27:00+00:00 is at or before prediction_time 2026-01-17T00:32:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_status' found in feature_expression; target identifier 'outcome_status' found in lineage_columns
+LABEL-SOURCE-013,dev,1,label_source,medium,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-17T07:38:00+00:00 is at or before prediction_time 2026-01-17T07:43:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-014,dev,1,label_source,high,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-17T14:49:00+00:00 is at or before prediction_time 2026-01-17T14:54:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+LABEL-SOURCE-015,dev,1,label_source,low,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-17T21:00:00+00:00 is at or before prediction_time 2026-01-17T21:05:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-016,dev,1,label_source,medium,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table; label_available_time 2026-01-18T04:11:00+00:00 is at or before prediction_time 2026-01-18T04:16:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_status' found in feature_expression; target identifier 'outcome_status' found in lineage_columns
+LABEL-SOURCE-017,dev,1,label_source,high,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-18T11:22:00+00:00 is at or before prediction_time 2026-01-18T11:27:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-018,dev,1,label_source,low,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-18T18:33:00+00:00 is at or before prediction_time 2026-01-18T18:38:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+LABEL-SOURCE-019,dev,1,label_source,medium,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-19T01:44:00+00:00 is at or before prediction_time 2026-01-19T01:49:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-020,dev,1,label_source,high,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table; label_available_time 2026-01-19T07:55:00+00:00 is at or before prediction_time 2026-01-19T08:00:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_status' found in feature_expression; target identifier 'outcome_status' found in lineage_columns
+LABEL-SOURCE-021,dev,1,label_source,low,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-19T15:06:00+00:00 is at or before prediction_time 2026-01-19T15:11:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-022,dev,1,label_source,medium,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-19T22:17:00+00:00 is at or before prediction_time 2026-01-19T22:22:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+LABEL-SOURCE-023,dev,1,label_source,high,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-20T05:28:00+00:00 is at or before prediction_time 2026-01-20T05:33:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
 DUPLICATION-000,dev,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99933 with the other split >= threshold 0.998
 DUPLICATION-001,dev,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
 DUPLICATION-002,dev,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (856de492f1c8)
@@ -251,38 +251,38 @@ AGGREGATION-036,heldout,1,future_aggregation,low,False,none,False,none,True,futu
 AGGREGATION-037,heldout,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-29T02:27:00+00:00 exceeds prediction_time 2026-01-28T23:27:00+00:00 by 3.00 h; source_max_event_time 2026-01-29T02:17:00+00:00 exceeds prediction_time 2026-01-28T23:27:00+00:00 by 2.83 h
 AGGREGATION-038,heldout,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-30T06:38:00+00:00 exceeds prediction_time 2026-01-29T06:38:00+00:00 by 24.00 h; source_max_event_time 2026-01-30T06:28:00+00:00 exceeds prediction_time 2026-01-29T06:38:00+00:00 by 23.83 h
 AGGREGATION-039,heldout,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-29T14:19:00+00:00 exceeds prediction_time 2026-01-29T13:49:00+00:00 by 1800 s; source_max_event_time 2026-01-29T14:09:00+00:00 exceeds prediction_time 2026-01-29T13:49:00+00:00 by 1200 s
-TARGET-DERIVED-024,heldout,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-025,heldout,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-026,heldout,1,target_derived,high,False,none,False,none,False,none,
-TARGET-DERIVED-027,heldout,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-028,heldout,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-029,heldout,1,target_derived,high,False,none,False,none,False,none,
-TARGET-DERIVED-030,heldout,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-031,heldout,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-032,heldout,1,target_derived,high,False,none,False,none,False,none,
-TARGET-DERIVED-033,heldout,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-034,heldout,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-035,heldout,1,target_derived,high,False,none,False,none,False,none,
-TARGET-DERIVED-036,heldout,1,target_derived,low,False,none,False,none,False,none,
-TARGET-DERIVED-037,heldout,1,target_derived,medium,False,none,False,none,False,none,
-TARGET-DERIVED-038,heldout,1,target_derived,high,False,none,False,none,False,none,
-TARGET-DERIVED-039,heldout,1,target_derived,low,False,none,False,none,False,none,
-LABEL-SOURCE-024,heldout,1,label_source,low,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
-LABEL-SOURCE-025,heldout,1,label_source,medium,False,none,False,none,False,none,
-LABEL-SOURCE-026,heldout,1,label_source,high,False,none,False,none,False,none,
-LABEL-SOURCE-027,heldout,1,label_source,low,False,none,False,none,False,none,
-LABEL-SOURCE-028,heldout,1,label_source,medium,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
-LABEL-SOURCE-029,heldout,1,label_source,high,False,none,False,none,False,none,
-LABEL-SOURCE-030,heldout,1,label_source,low,False,none,False,none,False,none,
-LABEL-SOURCE-031,heldout,1,label_source,medium,False,none,False,none,False,none,
-LABEL-SOURCE-032,heldout,1,label_source,high,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
-LABEL-SOURCE-033,heldout,1,label_source,low,False,none,False,none,False,none,
-LABEL-SOURCE-034,heldout,1,label_source,medium,False,none,False,none,False,none,
-LABEL-SOURCE-035,heldout,1,label_source,high,False,none,False,none,False,none,
-LABEL-SOURCE-036,heldout,1,label_source,low,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
-LABEL-SOURCE-037,heldout,1,label_source,medium,False,none,False,none,False,none,
-LABEL-SOURCE-038,heldout,1,label_source,high,False,none,False,none,False,none,
-LABEL-SOURCE-039,heldout,1,label_source,low,False,none,False,none,False,none,
+TARGET-DERIVED-024,heldout,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in feature_expression; target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-025,heldout,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+TARGET-DERIVED-026,heldout,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+TARGET-DERIVED-027,heldout,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-028,heldout,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in feature_expression; target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-029,heldout,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+TARGET-DERIVED-030,heldout,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+TARGET-DERIVED-031,heldout,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-032,heldout,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in feature_expression; target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-033,heldout,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+TARGET-DERIVED-034,heldout,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+TARGET-DERIVED-035,heldout,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-036,heldout,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in feature_expression; target identifier 'resolution_code' found in lineage_columns
+TARGET-DERIVED-037,heldout,1,target_derived,medium,False,none,False,none,True,target_derived_leakage,target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+TARGET-DERIVED-038,heldout,1,target_derived,high,False,none,False,none,True,target_derived_leakage,target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+TARGET-DERIVED-039,heldout,1,target_derived,low,False,none,False,none,True,target_derived_leakage,target identifier 'resolution_code' found in lineage_columns
+LABEL-SOURCE-024,heldout,1,label_source,low,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table; label_available_time 2026-01-20T12:39:00+00:00 is at or before prediction_time 2026-01-20T12:44:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_status' found in feature_expression; target identifier 'outcome_status' found in lineage_columns
+LABEL-SOURCE-025,heldout,1,label_source,medium,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-20T19:50:00+00:00 is at or before prediction_time 2026-01-20T19:55:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-026,heldout,1,label_source,high,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-21T02:01:00+00:00 is at or before prediction_time 2026-01-21T02:06:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+LABEL-SOURCE-027,heldout,1,label_source,low,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-21T09:12:00+00:00 is at or before prediction_time 2026-01-21T09:17:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-028,heldout,1,label_source,medium,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table; label_available_time 2026-01-21T16:23:00+00:00 is at or before prediction_time 2026-01-21T16:28:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_status' found in feature_expression; target identifier 'outcome_status' found in lineage_columns
+LABEL-SOURCE-029,heldout,1,label_source,high,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-21T23:34:00+00:00 is at or before prediction_time 2026-01-21T23:39:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-030,heldout,1,label_source,low,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-22T06:45:00+00:00 is at or before prediction_time 2026-01-22T06:50:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+LABEL-SOURCE-031,heldout,1,label_source,medium,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-22T12:56:00+00:00 is at or before prediction_time 2026-01-22T13:01:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-032,heldout,1,label_source,high,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table; label_available_time 2026-01-22T20:07:00+00:00 is at or before prediction_time 2026-01-22T20:12:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_status' found in feature_expression; target identifier 'outcome_status' found in lineage_columns
+LABEL-SOURCE-033,heldout,1,label_source,low,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-23T03:18:00+00:00 is at or before prediction_time 2026-01-23T03:23:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-034,heldout,1,label_source,medium,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-23T10:29:00+00:00 is at or before prediction_time 2026-01-23T10:34:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+LABEL-SOURCE-035,heldout,1,label_source,high,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-23T17:40:00+00:00 is at or before prediction_time 2026-01-23T17:45:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-036,heldout,1,label_source,low,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table; label_available_time 2026-01-24T00:51:00+00:00 is at or before prediction_time 2026-01-24T00:56:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_status' found in feature_expression; target identifier 'outcome_status' found in lineage_columns
+LABEL-SOURCE-037,heldout,1,label_source,medium,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-24T07:02:00+00:00 is at or before prediction_time 2026-01-24T07:07:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
+LABEL-SOURCE-038,heldout,1,label_source,high,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-24T14:13:00+00:00 is at or before prediction_time 2026-01-24T14:18:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'outcome_code' found in feature_expression; target identifier 'outcome_code' found in lineage_columns
+LABEL-SOURCE-039,heldout,1,label_source,low,False,none,False,none,True,label_relation_leakage,label_available_time 2026-01-24T21:24:00+00:00 is at or before prediction_time 2026-01-24T21:29:00+00:00 by 300 s: the label is already recorded when features are read; target identifier 'status_code' found in feature_expression; target identifier 'status_code' found in lineage_columns
 DUPLICATION-024,heldout,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99970 with the other split >= threshold 0.998
 DUPLICATION-025,heldout,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
 DUPLICATION-026,heldout,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (e814a967fd52)

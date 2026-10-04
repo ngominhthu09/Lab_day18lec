@@ -7,7 +7,11 @@
     "churn_label",
     "default_label",
     "y_true",
-    "ground_truth"
+    "ground_truth",
+    "outcome_code",
+    "outcome_status",
+    "resolution_code",
+    "status_code"
   ],
   "label_tables": [
     "labels",
@@ -26,6 +30,7 @@
     "future_aggregation",
     "target_lineage",
     "label_relation",
+    "label_timing",
     "duplication"
   ],
   "columns": {
@@ -33,6 +38,7 @@
     "feature_time": "feature_time",
     "aggregation_window_end": "aggregation_window_end",
     "source_max_event_time": "source_max_event_time",
+    "label_available_time": "label_available_time",
     "feature_expression": "feature_expression",
     "lineage_columns": "lineage_columns",
     "source_role": "source_role",
@@ -43,12 +49,21 @@
     "other_split_vector": "other_split_vector"
   },
   "tuning": {
-    "tuned_on": "C:\\Bo\\VinAI\\LEC\\261004_LEC17\\Lab_day18lec\\data\\dev_cases.csv",
+    "tuned_on": "data/dev_cases.csv",
     "dev_sha256": "46d7db984b4ce253ce03fcac284e44498caad782977067fff826155537db6cdc",
     "rows": 180,
     "rows_skipped_no_truth": 0,
     "dev_missing_columns": [],
-    "tuned_at": "2026-10-04 17:03:14",
+    "vocabulary_file": "config/validator_vocabulary.json",
+    "vocabulary_added": {
+      "target_tokens": [
+        "outcome_code",
+        "outcome_status",
+        "resolution_code",
+        "status_code"
+      ]
+    },
+    "tuned_at": "2026-10-04 17:18:12",
     "searched": "near_duplicate_threshold",
     "grid": [
       0.9,
@@ -68,14 +83,14 @@
     "rule": "max dev recall subject to dev FPR <= 0.05; ties -> lower FPR -> higher threshold",
     "fpr_target_met": true,
     "dev_metrics": {
-      "tp": 78,
+      "tp": 120,
       "fp": 0,
-      "fn": 42,
+      "fn": 0,
       "tn": 60,
-      "recall": 0.65,
+      "recall": 1.0,
       "fpr": 0.0,
       "precision": 1.0,
-      "f1": 0.7879
+      "f1": 1.0
     },
     "heldout_read": false
   }

@@ -13,8 +13,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from src.tune_validator import main as tune_main  # noqa: E402
-from src.validators import (DUPLICATION, FUTURE_AGGREGATION, LABEL_RELATION, NO_LEAKAGE,  # noqa: E402
-                            TARGET_DERIVED, TEMPORAL, ImprovedValidator, ValidatorConfig,
+from src.validators import (DEFAULT_CONFIG_PATH, DUPLICATION, FUTURE_AGGREGATION, LABEL_RELATION,  # noqa: E402
+                            NO_LEAKAGE, TARGET_DERIVED, TEMPORAL, ImprovedValidator, ValidatorConfig,
                             column_identifiers, cosine_similarity, parse_timestamp)
 
 CLEAN = {
@@ -23,6 +23,7 @@ CLEAN = {
     "feature_time": "2026-01-01T09:00:00Z",
     "aggregation_window_end": "2026-01-01T10:00:00Z",
     "source_max_event_time": "2026-01-01T09:30:00Z",
+    "label_available_time": "2026-01-02T10:00:00Z",
     "feature_expression": "SUM(t.amount) FILTER (WHERE t.event_time < :prediction_time)",
     "lineage_columns": '["transactions.amount", "transactions.event_time"]',
     "source_role": "feature",
@@ -87,8 +88,11 @@ class GateTests(unittest.TestCase):
         self.assertFalse(self.v.validate(row(lineage_columns="labels.customer_id, transactions.amount"))["flagged"])
 
     def test_known_alias_failure_is_not_hardcoded(self):
-        # semantic aliases without metadata are a documented limitation
+        # semantic aliases are not built-in defaults; dev-reviewed ones live in config/validator_vocabulary.json
         self.assertFalse(self.v.validate(row(lineage_columns='["tickets.resolution_code"]'))["flagged"])
+        reviewed = ImprovedValidator(ValidatorConfig(target_tokens=ValidatorConfig().target_tokens + ["resolution_code"]))
+        out = reviewed.validate(row(lineage_columns='["tickets.resolution_code"]'))
+        self.assertEqual(out["root_cause"], TARGET_DERIVED)
 
     def test_label_relation(self):
         out = self.v.validate(row(source_role="Label"))
@@ -98,6 +102,27 @@ class GateTests(unittest.TestCase):
         self.assertIn("source_table 'ml.training_labels' is a governed label table", out["reasons"])
         for table in ("order_status", "customer_status_history", "shipping_labels_printed"):
             self.assertFalse(self.v.validate(row(source_table=table))["flagged"], table)
+
+    def test_label_timing(self):
+        out = self.v.validate(row(label_available_time="2026-01-01T09:55:00Z"))
+        self.assertEqual(out["detected_causes"], [LABEL_RELATION])
+        self.assertIn("label_available_time 2026-01-01T09:55:00+00:00 is at or before prediction_time", out["reasons"][0])
+        self.assertEqual(out["scores"]["label_lead_seconds"], -300.0)
+        # a label recorded at the prediction instant is already visible to an as-of join
+        self.assertTrue(self.v.validate(row(label_available_time="2026-01-01T10:00:00Z"))["flagged"])
+        # the feature itself being old does not make an already-known label safe
+        self.assertTrue(self.v.validate(row(feature_time="2026-01-01T08:00:00Z",
+                                            label_available_time="2026-01-01T09:00:00Z"))["flagged"])
+
+    def test_label_timing_missing_warns(self):
+        out = self.v.validate(row(label_available_time=""))
+        self.assertFalse(out["flagged"])
+        self.assertIn("label-timing check skipped: label_available_time missing", out["warnings"])
+
+    def test_label_relation_outranks_target_lineage(self):
+        out = self.v.validate(row(source_table="labels", lineage_columns='["labels.churn_label"]'))
+        self.assertEqual(out["root_cause"], LABEL_RELATION)
+        self.assertEqual(out["detected_causes"], [LABEL_RELATION, TARGET_DERIVED])
 
     def test_exact_duplicate(self):
         out = self.v.validate(row(exact_duplicate_hash="ABC", other_split_hash="abc "))
@@ -252,6 +277,37 @@ class TunerTests(unittest.TestCase):
             v = ImprovedValidator(tmp / "cfg.json")
             self.assertEqual(v.config.near_duplicate_threshold, cfg["near_duplicate_threshold"])
             self.assertIn("near_duplicate_threshold sweep", (tmp / "report.md").read_text(encoding="utf-8"))
+
+    def test_merges_reviewed_vocabulary(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            rows = [row(case_id="clean", is_leakage="0"),
+                    row(case_id="alias", lineage_columns='["tickets.resolution_code"]', is_leakage="1")]
+            self._write(tmp / "dev_cases.csv", rows)
+            (tmp / "vocab.json").write_text(json.dumps(
+                {"target_tokens": {"resolution_code": "ticket outcome"}}), encoding="utf-8")
+            tune_main(["--dev", str(tmp / "dev_cases.csv"), "--vocab", str(tmp / "vocab.json"),
+                       "--config-out", str(tmp / "cfg.json"), "--report-out", str(tmp / "report.md")])
+            cfg = json.loads((tmp / "cfg.json").read_text(encoding="utf-8"))
+            self.assertIn("resolution_code", cfg["target_tokens"])
+            self.assertEqual(cfg["tuning"]["dev_metrics"]["recall"], 1.0)
+            report = (tmp / "report.md").read_text(encoding="utf-8")
+            self.assertIn("| target_tokens | `resolution_code` | ticket outcome |", report)
+            self.assertIn("Known blind spots", report)
+            (tmp / "vocab.json").write_text(json.dumps({"target_tokens": {"status_code": ""}}), encoding="utf-8")
+            with self.assertRaises(SystemExit):
+                tune_main(["--dev", str(tmp / "dev_cases.csv"), "--vocab", str(tmp / "vocab.json"),
+                           "--config-out", str(tmp / "cfg.json"), "--report-out", str(tmp / "report.md")])
+
+    def test_frozen_config_is_current(self):
+        # editing the vocabulary or the checks without re-running the tuner leaves a stale frozen config
+        frozen = json.loads(DEFAULT_CONFIG_PATH.read_text(encoding="utf-8"))
+        vocab = json.loads((DEFAULT_CONFIG_PATH.parent / "validator_vocabulary.json").read_text(encoding="utf-8"))
+        for key in ("target_tokens", "label_tables", "label_roles"):
+            for entry in vocab.get(key, {}):
+                self.assertIn(entry, frozen[key], f"{entry} missing from frozen {key}; re-run src.tune_validator")
+        self.assertEqual(sorted(frozen["enabled_checks"]), sorted(ValidatorConfig().enabled_checks))
+        self.assertFalse(frozen["tuning"]["heldout_read"])
 
     def test_schema_preflight_reports_missing_columns(self):
         with tempfile.TemporaryDirectory() as tmp:

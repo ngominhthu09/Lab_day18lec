@@ -1,16 +1,16 @@
 {
-  "frozen_timestamp": "2026-10-04T10:03:59.241591Z",
+  "frozen_timestamp": "2026-10-04T10:18:17.004437Z",
   "validator": "improved",
   "calibrated_threshold": 1.0,
   "dev_metrics": {
-    "TP": 78,
+    "TP": 120,
     "FP": 0,
     "TN": 60,
-    "FN": 42,
-    "recall": 0.65,
+    "FN": 0,
+    "recall": 1.0,
     "fpr": 0.0,
     "precision": 1.0,
-    "f1": 0.7879,
+    "f1": 1.0,
     "fpr_constraint_pass": true
   },
   "rule_note": "Calibrated exclusively on Dev set to guarantee FPR <= 5%. Frozen for Held-out evaluation."
