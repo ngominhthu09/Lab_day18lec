@@ -1,0 +1,7 @@
+Validator,Split,Recall (@ FPR<=5%),FPR,Precision,F1,Constraint Pass
+baseline,dev,0.2,0.0,1.0,0.3333,True
+baseline,heldout,0.2,0.0,1.0,0.3333,True
+baseline_ingestion,dev,0.2,0.0,1.0,0.3333,True
+baseline_ingestion,heldout,0.2,0.0,1.0,0.3333,True
+improved,dev,0.65,0.0,1.0,0.7879,True
+improved,heldout,0.65,0.0,1.0,0.7879,True

@@ -1,0 +1,301 @@
+case_id,split,ground_truth,leakage_type,severity,baseline_flagged,baseline_root_cause,baseline_ingestion_flagged,baseline_ingestion_root_cause,improved_flagged,improved_root_cause,improved_reasons
+CLEAN-000,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-001,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-002,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-003,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-004,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-005,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-006,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-007,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-008,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-009,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-010,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-011,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-012,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-013,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-014,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-015,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-016,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-017,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-018,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-019,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-020,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-021,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-022,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-023,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-024,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-025,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-026,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-027,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-028,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-029,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-030,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-031,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-032,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-033,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-034,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-035,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-036,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-037,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-038,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-039,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-040,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-041,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-042,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-043,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-044,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-045,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-046,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-047,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-048,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-049,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-050,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-051,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-052,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-053,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-054,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-055,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-056,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-057,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-058,dev,0,clean,none,False,none,False,none,False,none,
+CLEAN-059,dev,0,clean,none,False,none,False,none,False,none,
+TEMPORAL-000,dev,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-06T12:25:00+00:00 exceeds prediction_time 2026-01-06T12:20:00+00:00 by 300 s; aggregation_window_end 2026-01-06T12:25:00+00:00 exceeds prediction_time 2026-01-06T12:20:00+00:00 by 300 s; source_max_event_time 2026-01-06T12:25:00+00:00 exceeds prediction_time 2026-01-06T12:20:00+00:00 by 300 s
+TEMPORAL-001,dev,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-06T20:31:00+00:00 exceeds prediction_time 2026-01-06T19:31:00+00:00 by 1.00 h; aggregation_window_end 2026-01-06T20:31:00+00:00 exceeds prediction_time 2026-01-06T19:31:00+00:00 by 1.00 h; source_max_event_time 2026-01-06T20:31:00+00:00 exceeds prediction_time 2026-01-06T19:31:00+00:00 by 1.00 h
+TEMPORAL-002,dev,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-08T02:42:00+00:00 exceeds prediction_time 2026-01-07T02:42:00+00:00 by 24.00 h; aggregation_window_end 2026-01-08T02:42:00+00:00 exceeds prediction_time 2026-01-07T02:42:00+00:00 by 24.00 h; source_max_event_time 2026-01-08T02:42:00+00:00 exceeds prediction_time 2026-01-07T02:42:00+00:00 by 24.00 h
+TEMPORAL-003,dev,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-07T09:58:00+00:00 exceeds prediction_time 2026-01-07T09:53:00+00:00 by 300 s; aggregation_window_end 2026-01-07T09:58:00+00:00 exceeds prediction_time 2026-01-07T09:53:00+00:00 by 300 s; source_max_event_time 2026-01-07T09:58:00+00:00 exceeds prediction_time 2026-01-07T09:53:00+00:00 by 300 s
+TEMPORAL-004,dev,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-07T17:04:00+00:00 exceeds prediction_time 2026-01-07T16:04:00+00:00 by 1.00 h; aggregation_window_end 2026-01-07T17:04:00+00:00 exceeds prediction_time 2026-01-07T16:04:00+00:00 by 1.00 h; source_max_event_time 2026-01-07T17:04:00+00:00 exceeds prediction_time 2026-01-07T16:04:00+00:00 by 1.00 h
+TEMPORAL-005,dev,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-08T23:15:00+00:00 exceeds prediction_time 2026-01-07T23:15:00+00:00 by 24.00 h; aggregation_window_end 2026-01-08T23:15:00+00:00 exceeds prediction_time 2026-01-07T23:15:00+00:00 by 24.00 h; source_max_event_time 2026-01-08T23:15:00+00:00 exceeds prediction_time 2026-01-07T23:15:00+00:00 by 24.00 h
+TEMPORAL-006,dev,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-08T06:31:00+00:00 exceeds prediction_time 2026-01-08T06:26:00+00:00 by 300 s; aggregation_window_end 2026-01-08T06:31:00+00:00 exceeds prediction_time 2026-01-08T06:26:00+00:00 by 300 s; source_max_event_time 2026-01-08T06:31:00+00:00 exceeds prediction_time 2026-01-08T06:26:00+00:00 by 300 s
+TEMPORAL-007,dev,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-08T14:37:00+00:00 exceeds prediction_time 2026-01-08T13:37:00+00:00 by 1.00 h; aggregation_window_end 2026-01-08T14:37:00+00:00 exceeds prediction_time 2026-01-08T13:37:00+00:00 by 1.00 h; source_max_event_time 2026-01-08T14:37:00+00:00 exceeds prediction_time 2026-01-08T13:37:00+00:00 by 1.00 h
+TEMPORAL-008,dev,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-09T20:48:00+00:00 exceeds prediction_time 2026-01-08T20:48:00+00:00 by 24.00 h; aggregation_window_end 2026-01-09T20:48:00+00:00 exceeds prediction_time 2026-01-08T20:48:00+00:00 by 24.00 h; source_max_event_time 2026-01-09T20:48:00+00:00 exceeds prediction_time 2026-01-08T20:48:00+00:00 by 24.00 h
+TEMPORAL-009,dev,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-09T04:04:00+00:00 exceeds prediction_time 2026-01-09T03:59:00+00:00 by 300 s; aggregation_window_end 2026-01-09T04:04:00+00:00 exceeds prediction_time 2026-01-09T03:59:00+00:00 by 300 s; source_max_event_time 2026-01-09T04:04:00+00:00 exceeds prediction_time 2026-01-09T03:59:00+00:00 by 300 s
+TEMPORAL-010,dev,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-09T11:10:00+00:00 exceeds prediction_time 2026-01-09T10:10:00+00:00 by 1.00 h; aggregation_window_end 2026-01-09T11:10:00+00:00 exceeds prediction_time 2026-01-09T10:10:00+00:00 by 1.00 h; source_max_event_time 2026-01-09T11:10:00+00:00 exceeds prediction_time 2026-01-09T10:10:00+00:00 by 1.00 h
+TEMPORAL-011,dev,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-10T17:21:00+00:00 exceeds prediction_time 2026-01-09T17:21:00+00:00 by 24.00 h; aggregation_window_end 2026-01-10T17:21:00+00:00 exceeds prediction_time 2026-01-09T17:21:00+00:00 by 24.00 h; source_max_event_time 2026-01-10T17:21:00+00:00 exceeds prediction_time 2026-01-09T17:21:00+00:00 by 24.00 h
+TEMPORAL-012,dev,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-10T00:37:00+00:00 exceeds prediction_time 2026-01-10T00:32:00+00:00 by 300 s; aggregation_window_end 2026-01-10T00:37:00+00:00 exceeds prediction_time 2026-01-10T00:32:00+00:00 by 300 s; source_max_event_time 2026-01-10T00:37:00+00:00 exceeds prediction_time 2026-01-10T00:32:00+00:00 by 300 s
+TEMPORAL-013,dev,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-10T08:43:00+00:00 exceeds prediction_time 2026-01-10T07:43:00+00:00 by 1.00 h; aggregation_window_end 2026-01-10T08:43:00+00:00 exceeds prediction_time 2026-01-10T07:43:00+00:00 by 1.00 h; source_max_event_time 2026-01-10T08:43:00+00:00 exceeds prediction_time 2026-01-10T07:43:00+00:00 by 1.00 h
+TEMPORAL-014,dev,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-11T14:54:00+00:00 exceeds prediction_time 2026-01-10T14:54:00+00:00 by 24.00 h; aggregation_window_end 2026-01-11T14:54:00+00:00 exceeds prediction_time 2026-01-10T14:54:00+00:00 by 24.00 h; source_max_event_time 2026-01-11T14:54:00+00:00 exceeds prediction_time 2026-01-10T14:54:00+00:00 by 24.00 h
+TEMPORAL-015,dev,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-10T21:10:00+00:00 exceeds prediction_time 2026-01-10T21:05:00+00:00 by 300 s; aggregation_window_end 2026-01-10T21:10:00+00:00 exceeds prediction_time 2026-01-10T21:05:00+00:00 by 300 s; source_max_event_time 2026-01-10T21:10:00+00:00 exceeds prediction_time 2026-01-10T21:05:00+00:00 by 300 s
+TEMPORAL-016,dev,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-11T05:16:00+00:00 exceeds prediction_time 2026-01-11T04:16:00+00:00 by 1.00 h; aggregation_window_end 2026-01-11T05:16:00+00:00 exceeds prediction_time 2026-01-11T04:16:00+00:00 by 1.00 h; source_max_event_time 2026-01-11T05:16:00+00:00 exceeds prediction_time 2026-01-11T04:16:00+00:00 by 1.00 h
+TEMPORAL-017,dev,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-12T11:27:00+00:00 exceeds prediction_time 2026-01-11T11:27:00+00:00 by 24.00 h; aggregation_window_end 2026-01-12T11:27:00+00:00 exceeds prediction_time 2026-01-11T11:27:00+00:00 by 24.00 h; source_max_event_time 2026-01-12T11:27:00+00:00 exceeds prediction_time 2026-01-11T11:27:00+00:00 by 24.00 h
+TEMPORAL-018,dev,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-11T18:43:00+00:00 exceeds prediction_time 2026-01-11T18:38:00+00:00 by 300 s; aggregation_window_end 2026-01-11T18:43:00+00:00 exceeds prediction_time 2026-01-11T18:38:00+00:00 by 300 s; source_max_event_time 2026-01-11T18:43:00+00:00 exceeds prediction_time 2026-01-11T18:38:00+00:00 by 300 s
+TEMPORAL-019,dev,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-12T02:49:00+00:00 exceeds prediction_time 2026-01-12T01:49:00+00:00 by 1.00 h; aggregation_window_end 2026-01-12T02:49:00+00:00 exceeds prediction_time 2026-01-12T01:49:00+00:00 by 1.00 h; source_max_event_time 2026-01-12T02:49:00+00:00 exceeds prediction_time 2026-01-12T01:49:00+00:00 by 1.00 h
+TEMPORAL-020,dev,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-13T08:00:00+00:00 exceeds prediction_time 2026-01-12T08:00:00+00:00 by 24.00 h; aggregation_window_end 2026-01-13T08:00:00+00:00 exceeds prediction_time 2026-01-12T08:00:00+00:00 by 24.00 h; source_max_event_time 2026-01-13T08:00:00+00:00 exceeds prediction_time 2026-01-12T08:00:00+00:00 by 24.00 h
+TEMPORAL-021,dev,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-12T15:16:00+00:00 exceeds prediction_time 2026-01-12T15:11:00+00:00 by 300 s; aggregation_window_end 2026-01-12T15:16:00+00:00 exceeds prediction_time 2026-01-12T15:11:00+00:00 by 300 s; source_max_event_time 2026-01-12T15:16:00+00:00 exceeds prediction_time 2026-01-12T15:11:00+00:00 by 300 s
+TEMPORAL-022,dev,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-12T23:22:00+00:00 exceeds prediction_time 2026-01-12T22:22:00+00:00 by 1.00 h; aggregation_window_end 2026-01-12T23:22:00+00:00 exceeds prediction_time 2026-01-12T22:22:00+00:00 by 1.00 h; source_max_event_time 2026-01-12T23:22:00+00:00 exceeds prediction_time 2026-01-12T22:22:00+00:00 by 1.00 h
+TEMPORAL-023,dev,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-14T05:33:00+00:00 exceeds prediction_time 2026-01-13T05:33:00+00:00 by 24.00 h; aggregation_window_end 2026-01-14T05:33:00+00:00 exceeds prediction_time 2026-01-13T05:33:00+00:00 by 24.00 h; source_max_event_time 2026-01-14T05:33:00+00:00 exceeds prediction_time 2026-01-13T05:33:00+00:00 by 24.00 h
+AGGREGATION-000,dev,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-18T05:10:00+00:00 exceeds prediction_time 2026-01-18T04:40:00+00:00 by 1800 s; source_max_event_time 2026-01-18T05:00:00+00:00 exceeds prediction_time 2026-01-18T04:40:00+00:00 by 1200 s
+AGGREGATION-001,dev,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-18T14:51:00+00:00 exceeds prediction_time 2026-01-18T11:51:00+00:00 by 3.00 h; source_max_event_time 2026-01-18T14:41:00+00:00 exceeds prediction_time 2026-01-18T11:51:00+00:00 by 2.83 h
+AGGREGATION-002,dev,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-19T18:02:00+00:00 exceeds prediction_time 2026-01-18T18:02:00+00:00 by 24.00 h; source_max_event_time 2026-01-19T17:52:00+00:00 exceeds prediction_time 2026-01-18T18:02:00+00:00 by 23.83 h
+AGGREGATION-003,dev,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-19T01:43:00+00:00 exceeds prediction_time 2026-01-19T01:13:00+00:00 by 1800 s; source_max_event_time 2026-01-19T01:33:00+00:00 exceeds prediction_time 2026-01-19T01:13:00+00:00 by 1200 s
+AGGREGATION-004,dev,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-19T11:24:00+00:00 exceeds prediction_time 2026-01-19T08:24:00+00:00 by 3.00 h; source_max_event_time 2026-01-19T11:14:00+00:00 exceeds prediction_time 2026-01-19T08:24:00+00:00 by 2.83 h
+AGGREGATION-005,dev,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-20T15:35:00+00:00 exceeds prediction_time 2026-01-19T15:35:00+00:00 by 24.00 h; source_max_event_time 2026-01-20T15:25:00+00:00 exceeds prediction_time 2026-01-19T15:35:00+00:00 by 23.83 h
+AGGREGATION-006,dev,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-19T23:16:00+00:00 exceeds prediction_time 2026-01-19T22:46:00+00:00 by 1800 s; source_max_event_time 2026-01-19T23:06:00+00:00 exceeds prediction_time 2026-01-19T22:46:00+00:00 by 1200 s
+AGGREGATION-007,dev,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-20T08:57:00+00:00 exceeds prediction_time 2026-01-20T05:57:00+00:00 by 3.00 h; source_max_event_time 2026-01-20T08:47:00+00:00 exceeds prediction_time 2026-01-20T05:57:00+00:00 by 2.83 h
+AGGREGATION-008,dev,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-21T12:08:00+00:00 exceeds prediction_time 2026-01-20T12:08:00+00:00 by 24.00 h; source_max_event_time 2026-01-21T11:58:00+00:00 exceeds prediction_time 2026-01-20T12:08:00+00:00 by 23.83 h
+AGGREGATION-009,dev,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-20T19:49:00+00:00 exceeds prediction_time 2026-01-20T19:19:00+00:00 by 1800 s; source_max_event_time 2026-01-20T19:39:00+00:00 exceeds prediction_time 2026-01-20T19:19:00+00:00 by 1200 s
+AGGREGATION-010,dev,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-21T05:30:00+00:00 exceeds prediction_time 2026-01-21T02:30:00+00:00 by 3.00 h; source_max_event_time 2026-01-21T05:20:00+00:00 exceeds prediction_time 2026-01-21T02:30:00+00:00 by 2.83 h
+AGGREGATION-011,dev,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-22T09:41:00+00:00 exceeds prediction_time 2026-01-21T09:41:00+00:00 by 24.00 h; source_max_event_time 2026-01-22T09:31:00+00:00 exceeds prediction_time 2026-01-21T09:41:00+00:00 by 23.83 h
+AGGREGATION-012,dev,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-21T17:22:00+00:00 exceeds prediction_time 2026-01-21T16:52:00+00:00 by 1800 s; source_max_event_time 2026-01-21T17:12:00+00:00 exceeds prediction_time 2026-01-21T16:52:00+00:00 by 1200 s
+AGGREGATION-013,dev,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-22T02:03:00+00:00 exceeds prediction_time 2026-01-21T23:03:00+00:00 by 3.00 h; source_max_event_time 2026-01-22T01:53:00+00:00 exceeds prediction_time 2026-01-21T23:03:00+00:00 by 2.83 h
+AGGREGATION-014,dev,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-23T06:14:00+00:00 exceeds prediction_time 2026-01-22T06:14:00+00:00 by 24.00 h; source_max_event_time 2026-01-23T06:04:00+00:00 exceeds prediction_time 2026-01-22T06:14:00+00:00 by 23.83 h
+AGGREGATION-015,dev,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-22T13:55:00+00:00 exceeds prediction_time 2026-01-22T13:25:00+00:00 by 1800 s; source_max_event_time 2026-01-22T13:45:00+00:00 exceeds prediction_time 2026-01-22T13:25:00+00:00 by 1200 s
+AGGREGATION-016,dev,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-22T23:36:00+00:00 exceeds prediction_time 2026-01-22T20:36:00+00:00 by 3.00 h; source_max_event_time 2026-01-22T23:26:00+00:00 exceeds prediction_time 2026-01-22T20:36:00+00:00 by 2.83 h
+AGGREGATION-017,dev,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-24T03:47:00+00:00 exceeds prediction_time 2026-01-23T03:47:00+00:00 by 24.00 h; source_max_event_time 2026-01-24T03:37:00+00:00 exceeds prediction_time 2026-01-23T03:47:00+00:00 by 23.83 h
+AGGREGATION-018,dev,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-23T11:28:00+00:00 exceeds prediction_time 2026-01-23T10:58:00+00:00 by 1800 s; source_max_event_time 2026-01-23T11:18:00+00:00 exceeds prediction_time 2026-01-23T10:58:00+00:00 by 1200 s
+AGGREGATION-019,dev,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-23T20:09:00+00:00 exceeds prediction_time 2026-01-23T17:09:00+00:00 by 3.00 h; source_max_event_time 2026-01-23T19:59:00+00:00 exceeds prediction_time 2026-01-23T17:09:00+00:00 by 2.83 h
+AGGREGATION-020,dev,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-25T00:20:00+00:00 exceeds prediction_time 2026-01-24T00:20:00+00:00 by 24.00 h; source_max_event_time 2026-01-25T00:10:00+00:00 exceeds prediction_time 2026-01-24T00:20:00+00:00 by 23.83 h
+AGGREGATION-021,dev,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-24T08:01:00+00:00 exceeds prediction_time 2026-01-24T07:31:00+00:00 by 1800 s; source_max_event_time 2026-01-24T07:51:00+00:00 exceeds prediction_time 2026-01-24T07:31:00+00:00 by 1200 s
+AGGREGATION-022,dev,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-24T17:42:00+00:00 exceeds prediction_time 2026-01-24T14:42:00+00:00 by 3.00 h; source_max_event_time 2026-01-24T17:32:00+00:00 exceeds prediction_time 2026-01-24T14:42:00+00:00 by 2.83 h
+AGGREGATION-023,dev,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-25T21:53:00+00:00 exceeds prediction_time 2026-01-24T21:53:00+00:00 by 24.00 h; source_max_event_time 2026-01-25T21:43:00+00:00 exceeds prediction_time 2026-01-24T21:53:00+00:00 by 23.83 h
+TARGET-DERIVED-000,dev,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-001,dev,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-002,dev,1,target_derived,high,False,none,False,none,False,none,
+TARGET-DERIVED-003,dev,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-004,dev,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-005,dev,1,target_derived,high,False,none,False,none,False,none,
+TARGET-DERIVED-006,dev,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-007,dev,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-008,dev,1,target_derived,high,False,none,False,none,False,none,
+TARGET-DERIVED-009,dev,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-010,dev,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-011,dev,1,target_derived,high,False,none,False,none,False,none,
+TARGET-DERIVED-012,dev,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-013,dev,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-014,dev,1,target_derived,high,False,none,False,none,False,none,
+TARGET-DERIVED-015,dev,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-016,dev,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-017,dev,1,target_derived,high,False,none,False,none,False,none,
+TARGET-DERIVED-018,dev,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-019,dev,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-020,dev,1,target_derived,high,False,none,False,none,False,none,
+TARGET-DERIVED-021,dev,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-022,dev,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-023,dev,1,target_derived,high,False,none,False,none,False,none,
+LABEL-SOURCE-000,dev,1,label_source,low,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
+LABEL-SOURCE-001,dev,1,label_source,medium,False,none,False,none,False,none,
+LABEL-SOURCE-002,dev,1,label_source,high,False,none,False,none,False,none,
+LABEL-SOURCE-003,dev,1,label_source,low,False,none,False,none,False,none,
+LABEL-SOURCE-004,dev,1,label_source,medium,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
+LABEL-SOURCE-005,dev,1,label_source,high,False,none,False,none,False,none,
+LABEL-SOURCE-006,dev,1,label_source,low,False,none,False,none,False,none,
+LABEL-SOURCE-007,dev,1,label_source,medium,False,none,False,none,False,none,
+LABEL-SOURCE-008,dev,1,label_source,high,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
+LABEL-SOURCE-009,dev,1,label_source,low,False,none,False,none,False,none,
+LABEL-SOURCE-010,dev,1,label_source,medium,False,none,False,none,False,none,
+LABEL-SOURCE-011,dev,1,label_source,high,False,none,False,none,False,none,
+LABEL-SOURCE-012,dev,1,label_source,low,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
+LABEL-SOURCE-013,dev,1,label_source,medium,False,none,False,none,False,none,
+LABEL-SOURCE-014,dev,1,label_source,high,False,none,False,none,False,none,
+LABEL-SOURCE-015,dev,1,label_source,low,False,none,False,none,False,none,
+LABEL-SOURCE-016,dev,1,label_source,medium,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
+LABEL-SOURCE-017,dev,1,label_source,high,False,none,False,none,False,none,
+LABEL-SOURCE-018,dev,1,label_source,low,False,none,False,none,False,none,
+LABEL-SOURCE-019,dev,1,label_source,medium,False,none,False,none,False,none,
+LABEL-SOURCE-020,dev,1,label_source,high,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
+LABEL-SOURCE-021,dev,1,label_source,low,False,none,False,none,False,none,
+LABEL-SOURCE-022,dev,1,label_source,medium,False,none,False,none,False,none,
+LABEL-SOURCE-023,dev,1,label_source,high,False,none,False,none,False,none,
+DUPLICATION-000,dev,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99933 with the other split >= threshold 0.998
+DUPLICATION-001,dev,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-002,dev,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (856de492f1c8)
+DUPLICATION-003,dev,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99909 with the other split >= threshold 0.998
+DUPLICATION-004,dev,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-005,dev,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (ec7d975dadad)
+DUPLICATION-006,dev,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99961 with the other split >= threshold 0.998
+DUPLICATION-007,dev,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-008,dev,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (9d288c61340c)
+DUPLICATION-009,dev,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99970 with the other split >= threshold 0.998
+DUPLICATION-010,dev,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-011,dev,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (b73fcc5a6b2f)
+DUPLICATION-012,dev,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99857 with the other split >= threshold 0.998
+DUPLICATION-013,dev,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-014,dev,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (a829abd50206)
+DUPLICATION-015,dev,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99926 with the other split >= threshold 0.998
+DUPLICATION-016,dev,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-017,dev,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (aee9830a496b)
+DUPLICATION-018,dev,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99956 with the other split >= threshold 0.998
+DUPLICATION-019,dev,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-020,dev,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (3c866f7b456b)
+DUPLICATION-021,dev,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99953 with the other split >= threshold 0.998
+DUPLICATION-022,dev,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-023,dev,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (b8150a568f71)
+CLEAN-060,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-061,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-062,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-063,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-064,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-065,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-066,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-067,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-068,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-069,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-070,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-071,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-072,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-073,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-074,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-075,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-076,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-077,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-078,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-079,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-080,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-081,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-082,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-083,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-084,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-085,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-086,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-087,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-088,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-089,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-090,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-091,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-092,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-093,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-094,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-095,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-096,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-097,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-098,heldout,0,clean,none,False,none,False,none,False,none,
+CLEAN-099,heldout,0,clean,none,False,none,False,none,False,none,
+TEMPORAL-024,heldout,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-13T12:49:00+00:00 exceeds prediction_time 2026-01-13T12:44:00+00:00 by 300 s; aggregation_window_end 2026-01-13T12:49:00+00:00 exceeds prediction_time 2026-01-13T12:44:00+00:00 by 300 s; source_max_event_time 2026-01-13T12:49:00+00:00 exceeds prediction_time 2026-01-13T12:44:00+00:00 by 300 s
+TEMPORAL-025,heldout,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-13T20:55:00+00:00 exceeds prediction_time 2026-01-13T19:55:00+00:00 by 1.00 h; aggregation_window_end 2026-01-13T20:55:00+00:00 exceeds prediction_time 2026-01-13T19:55:00+00:00 by 1.00 h; source_max_event_time 2026-01-13T20:55:00+00:00 exceeds prediction_time 2026-01-13T19:55:00+00:00 by 1.00 h
+TEMPORAL-026,heldout,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-15T02:06:00+00:00 exceeds prediction_time 2026-01-14T02:06:00+00:00 by 24.00 h; aggregation_window_end 2026-01-15T02:06:00+00:00 exceeds prediction_time 2026-01-14T02:06:00+00:00 by 24.00 h; source_max_event_time 2026-01-15T02:06:00+00:00 exceeds prediction_time 2026-01-14T02:06:00+00:00 by 24.00 h
+TEMPORAL-027,heldout,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-14T09:22:00+00:00 exceeds prediction_time 2026-01-14T09:17:00+00:00 by 300 s; aggregation_window_end 2026-01-14T09:22:00+00:00 exceeds prediction_time 2026-01-14T09:17:00+00:00 by 300 s; source_max_event_time 2026-01-14T09:22:00+00:00 exceeds prediction_time 2026-01-14T09:17:00+00:00 by 300 s
+TEMPORAL-028,heldout,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-14T17:28:00+00:00 exceeds prediction_time 2026-01-14T16:28:00+00:00 by 1.00 h; aggregation_window_end 2026-01-14T17:28:00+00:00 exceeds prediction_time 2026-01-14T16:28:00+00:00 by 1.00 h; source_max_event_time 2026-01-14T17:28:00+00:00 exceeds prediction_time 2026-01-14T16:28:00+00:00 by 1.00 h
+TEMPORAL-029,heldout,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-15T23:39:00+00:00 exceeds prediction_time 2026-01-14T23:39:00+00:00 by 24.00 h; aggregation_window_end 2026-01-15T23:39:00+00:00 exceeds prediction_time 2026-01-14T23:39:00+00:00 by 24.00 h; source_max_event_time 2026-01-15T23:39:00+00:00 exceeds prediction_time 2026-01-14T23:39:00+00:00 by 24.00 h
+TEMPORAL-030,heldout,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-15T06:55:00+00:00 exceeds prediction_time 2026-01-15T06:50:00+00:00 by 300 s; aggregation_window_end 2026-01-15T06:55:00+00:00 exceeds prediction_time 2026-01-15T06:50:00+00:00 by 300 s; source_max_event_time 2026-01-15T06:55:00+00:00 exceeds prediction_time 2026-01-15T06:50:00+00:00 by 300 s
+TEMPORAL-031,heldout,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-15T14:01:00+00:00 exceeds prediction_time 2026-01-15T13:01:00+00:00 by 1.00 h; aggregation_window_end 2026-01-15T14:01:00+00:00 exceeds prediction_time 2026-01-15T13:01:00+00:00 by 1.00 h; source_max_event_time 2026-01-15T14:01:00+00:00 exceeds prediction_time 2026-01-15T13:01:00+00:00 by 1.00 h
+TEMPORAL-032,heldout,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-16T20:12:00+00:00 exceeds prediction_time 2026-01-15T20:12:00+00:00 by 24.00 h; aggregation_window_end 2026-01-16T20:12:00+00:00 exceeds prediction_time 2026-01-15T20:12:00+00:00 by 24.00 h; source_max_event_time 2026-01-16T20:12:00+00:00 exceeds prediction_time 2026-01-15T20:12:00+00:00 by 24.00 h
+TEMPORAL-033,heldout,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-16T03:28:00+00:00 exceeds prediction_time 2026-01-16T03:23:00+00:00 by 300 s; aggregation_window_end 2026-01-16T03:28:00+00:00 exceeds prediction_time 2026-01-16T03:23:00+00:00 by 300 s; source_max_event_time 2026-01-16T03:28:00+00:00 exceeds prediction_time 2026-01-16T03:23:00+00:00 by 300 s
+TEMPORAL-034,heldout,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-16T11:34:00+00:00 exceeds prediction_time 2026-01-16T10:34:00+00:00 by 1.00 h; aggregation_window_end 2026-01-16T11:34:00+00:00 exceeds prediction_time 2026-01-16T10:34:00+00:00 by 1.00 h; source_max_event_time 2026-01-16T11:34:00+00:00 exceeds prediction_time 2026-01-16T10:34:00+00:00 by 1.00 h
+TEMPORAL-035,heldout,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-17T17:45:00+00:00 exceeds prediction_time 2026-01-16T17:45:00+00:00 by 24.00 h; aggregation_window_end 2026-01-17T17:45:00+00:00 exceeds prediction_time 2026-01-16T17:45:00+00:00 by 24.00 h; source_max_event_time 2026-01-17T17:45:00+00:00 exceeds prediction_time 2026-01-16T17:45:00+00:00 by 24.00 h
+TEMPORAL-036,heldout,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-17T01:01:00+00:00 exceeds prediction_time 2026-01-17T00:56:00+00:00 by 300 s; aggregation_window_end 2026-01-17T01:01:00+00:00 exceeds prediction_time 2026-01-17T00:56:00+00:00 by 300 s; source_max_event_time 2026-01-17T01:01:00+00:00 exceeds prediction_time 2026-01-17T00:56:00+00:00 by 300 s
+TEMPORAL-037,heldout,1,direct_temporal,medium,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-17T08:07:00+00:00 exceeds prediction_time 2026-01-17T07:07:00+00:00 by 1.00 h; aggregation_window_end 2026-01-17T08:07:00+00:00 exceeds prediction_time 2026-01-17T07:07:00+00:00 by 1.00 h; source_max_event_time 2026-01-17T08:07:00+00:00 exceeds prediction_time 2026-01-17T07:07:00+00:00 by 1.00 h
+TEMPORAL-038,heldout,1,direct_temporal,high,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-18T14:18:00+00:00 exceeds prediction_time 2026-01-17T14:18:00+00:00 by 24.00 h; aggregation_window_end 2026-01-18T14:18:00+00:00 exceeds prediction_time 2026-01-17T14:18:00+00:00 by 24.00 h; source_max_event_time 2026-01-18T14:18:00+00:00 exceeds prediction_time 2026-01-17T14:18:00+00:00 by 24.00 h
+TEMPORAL-039,heldout,1,direct_temporal,low,True,temporal_leakage,True,temporal_leakage,True,temporal_leakage,feature_time 2026-01-17T21:34:00+00:00 exceeds prediction_time 2026-01-17T21:29:00+00:00 by 300 s; aggregation_window_end 2026-01-17T21:34:00+00:00 exceeds prediction_time 2026-01-17T21:29:00+00:00 by 300 s; source_max_event_time 2026-01-17T21:34:00+00:00 exceeds prediction_time 2026-01-17T21:29:00+00:00 by 300 s
+AGGREGATION-024,heldout,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-25T04:34:00+00:00 exceeds prediction_time 2026-01-25T04:04:00+00:00 by 1800 s; source_max_event_time 2026-01-25T04:24:00+00:00 exceeds prediction_time 2026-01-25T04:04:00+00:00 by 1200 s
+AGGREGATION-025,heldout,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-25T14:15:00+00:00 exceeds prediction_time 2026-01-25T11:15:00+00:00 by 3.00 h; source_max_event_time 2026-01-25T14:05:00+00:00 exceeds prediction_time 2026-01-25T11:15:00+00:00 by 2.83 h
+AGGREGATION-026,heldout,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-26T18:26:00+00:00 exceeds prediction_time 2026-01-25T18:26:00+00:00 by 24.00 h; source_max_event_time 2026-01-26T18:16:00+00:00 exceeds prediction_time 2026-01-25T18:26:00+00:00 by 23.83 h
+AGGREGATION-027,heldout,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-26T02:07:00+00:00 exceeds prediction_time 2026-01-26T01:37:00+00:00 by 1800 s; source_max_event_time 2026-01-26T01:57:00+00:00 exceeds prediction_time 2026-01-26T01:37:00+00:00 by 1200 s
+AGGREGATION-028,heldout,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-26T11:48:00+00:00 exceeds prediction_time 2026-01-26T08:48:00+00:00 by 3.00 h; source_max_event_time 2026-01-26T11:38:00+00:00 exceeds prediction_time 2026-01-26T08:48:00+00:00 by 2.83 h
+AGGREGATION-029,heldout,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-27T15:59:00+00:00 exceeds prediction_time 2026-01-26T15:59:00+00:00 by 24.00 h; source_max_event_time 2026-01-27T15:49:00+00:00 exceeds prediction_time 2026-01-26T15:59:00+00:00 by 23.83 h
+AGGREGATION-030,heldout,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-26T22:40:00+00:00 exceeds prediction_time 2026-01-26T22:10:00+00:00 by 1800 s; source_max_event_time 2026-01-26T22:30:00+00:00 exceeds prediction_time 2026-01-26T22:10:00+00:00 by 1200 s
+AGGREGATION-031,heldout,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-27T08:21:00+00:00 exceeds prediction_time 2026-01-27T05:21:00+00:00 by 3.00 h; source_max_event_time 2026-01-27T08:11:00+00:00 exceeds prediction_time 2026-01-27T05:21:00+00:00 by 2.83 h
+AGGREGATION-032,heldout,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-28T12:32:00+00:00 exceeds prediction_time 2026-01-27T12:32:00+00:00 by 24.00 h; source_max_event_time 2026-01-28T12:22:00+00:00 exceeds prediction_time 2026-01-27T12:32:00+00:00 by 23.83 h
+AGGREGATION-033,heldout,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-27T20:13:00+00:00 exceeds prediction_time 2026-01-27T19:43:00+00:00 by 1800 s; source_max_event_time 2026-01-27T20:03:00+00:00 exceeds prediction_time 2026-01-27T19:43:00+00:00 by 1200 s
+AGGREGATION-034,heldout,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-28T05:54:00+00:00 exceeds prediction_time 2026-01-28T02:54:00+00:00 by 3.00 h; source_max_event_time 2026-01-28T05:44:00+00:00 exceeds prediction_time 2026-01-28T02:54:00+00:00 by 2.83 h
+AGGREGATION-035,heldout,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-29T09:05:00+00:00 exceeds prediction_time 2026-01-28T09:05:00+00:00 by 24.00 h; source_max_event_time 2026-01-29T08:55:00+00:00 exceeds prediction_time 2026-01-28T09:05:00+00:00 by 23.83 h
+AGGREGATION-036,heldout,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-28T16:46:00+00:00 exceeds prediction_time 2026-01-28T16:16:00+00:00 by 1800 s; source_max_event_time 2026-01-28T16:36:00+00:00 exceeds prediction_time 2026-01-28T16:16:00+00:00 by 1200 s
+AGGREGATION-037,heldout,1,future_aggregation,medium,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-29T02:27:00+00:00 exceeds prediction_time 2026-01-28T23:27:00+00:00 by 3.00 h; source_max_event_time 2026-01-29T02:17:00+00:00 exceeds prediction_time 2026-01-28T23:27:00+00:00 by 2.83 h
+AGGREGATION-038,heldout,1,future_aggregation,high,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-30T06:38:00+00:00 exceeds prediction_time 2026-01-29T06:38:00+00:00 by 24.00 h; source_max_event_time 2026-01-30T06:28:00+00:00 exceeds prediction_time 2026-01-29T06:38:00+00:00 by 23.83 h
+AGGREGATION-039,heldout,1,future_aggregation,low,False,none,False,none,True,future_aggregation_leakage,aggregation_window_end 2026-01-29T14:19:00+00:00 exceeds prediction_time 2026-01-29T13:49:00+00:00 by 1800 s; source_max_event_time 2026-01-29T14:09:00+00:00 exceeds prediction_time 2026-01-29T13:49:00+00:00 by 1200 s
+TARGET-DERIVED-024,heldout,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-025,heldout,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-026,heldout,1,target_derived,high,False,none,False,none,False,none,
+TARGET-DERIVED-027,heldout,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-028,heldout,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-029,heldout,1,target_derived,high,False,none,False,none,False,none,
+TARGET-DERIVED-030,heldout,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-031,heldout,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-032,heldout,1,target_derived,high,False,none,False,none,False,none,
+TARGET-DERIVED-033,heldout,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-034,heldout,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-035,heldout,1,target_derived,high,False,none,False,none,False,none,
+TARGET-DERIVED-036,heldout,1,target_derived,low,False,none,False,none,False,none,
+TARGET-DERIVED-037,heldout,1,target_derived,medium,False,none,False,none,False,none,
+TARGET-DERIVED-038,heldout,1,target_derived,high,False,none,False,none,False,none,
+TARGET-DERIVED-039,heldout,1,target_derived,low,False,none,False,none,False,none,
+LABEL-SOURCE-024,heldout,1,label_source,low,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
+LABEL-SOURCE-025,heldout,1,label_source,medium,False,none,False,none,False,none,
+LABEL-SOURCE-026,heldout,1,label_source,high,False,none,False,none,False,none,
+LABEL-SOURCE-027,heldout,1,label_source,low,False,none,False,none,False,none,
+LABEL-SOURCE-028,heldout,1,label_source,medium,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
+LABEL-SOURCE-029,heldout,1,label_source,high,False,none,False,none,False,none,
+LABEL-SOURCE-030,heldout,1,label_source,low,False,none,False,none,False,none,
+LABEL-SOURCE-031,heldout,1,label_source,medium,False,none,False,none,False,none,
+LABEL-SOURCE-032,heldout,1,label_source,high,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
+LABEL-SOURCE-033,heldout,1,label_source,low,False,none,False,none,False,none,
+LABEL-SOURCE-034,heldout,1,label_source,medium,False,none,False,none,False,none,
+LABEL-SOURCE-035,heldout,1,label_source,high,False,none,False,none,False,none,
+LABEL-SOURCE-036,heldout,1,label_source,low,False,none,False,none,True,label_relation_leakage,source_role='label'; source_table 'labels' is a governed label table
+LABEL-SOURCE-037,heldout,1,label_source,medium,False,none,False,none,False,none,
+LABEL-SOURCE-038,heldout,1,label_source,high,False,none,False,none,False,none,
+LABEL-SOURCE-039,heldout,1,label_source,low,False,none,False,none,False,none,
+DUPLICATION-024,heldout,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99970 with the other split >= threshold 0.998
+DUPLICATION-025,heldout,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-026,heldout,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (e814a967fd52)
+DUPLICATION-027,heldout,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99973 with the other split >= threshold 0.998
+DUPLICATION-028,heldout,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-029,heldout,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (ad45435d0be7)
+DUPLICATION-030,heldout,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99948 with the other split >= threshold 0.998
+DUPLICATION-031,heldout,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-032,heldout,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (15fe5c193531)
+DUPLICATION-033,heldout,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99947 with the other split >= threshold 0.998
+DUPLICATION-034,heldout,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-035,heldout,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (2471174a4544)
+DUPLICATION-036,heldout,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99945 with the other split >= threshold 0.998
+DUPLICATION-037,heldout,1,duplication,medium,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 1.00000 with the other split >= threshold 0.998
+DUPLICATION-038,heldout,1,duplication,high,False,none,False,none,True,duplication_leakage,exact duplicate: exact_duplicate_hash equals other_split_hash (2ed3cec371b8)
+DUPLICATION-039,heldout,1,duplication,low,False,none,False,none,True,duplication_leakage,near duplicate: cosine similarity 0.99950 with the other split >= threshold 0.998
